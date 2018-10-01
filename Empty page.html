@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!-- Modify or remove all items marked xxx -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Empty Page xxx </title>
+
+<style>
+    #out { /* CSS code used in out */
+        font-size: 18px;
+        background: blue;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+
+<script>
+"use strict";
+// JavaScript code used in button
+function cnt() {
+    console.log("Counter = "+count); 
+    return count++; 
+}
+</script>
+</head>
+
+<body>
+
+<h2 id=title></h2>
+
+<button onClick="cnt()">xxx</button>
+
+<p id=out></p>
+
+<hr />
+<b>Sample code</b>
+<pre id=sample></pre>
+
+<hr />
+<p>Ref: <a href="https://www.w3schools.com/js/" 
+   target="ExternalDocument">JS Tutorial</a>
+</p>
+
+<script>
+    //global variable id is the HTML element with id 
+    //const title = document.getElementById("title");
+    title.innerText = document.title;
+    sample.innerText = cnt.toString();
+    out.innerHTML = "Modify all items marked xxx";
+    var count = 0; cnt();
+</script>
+
+</body>
+</html>
