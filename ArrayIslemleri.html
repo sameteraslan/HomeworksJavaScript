@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Array Methods </title>
+</head>
+
+<script>
+"use strict";
+function modify() {
+    let i = Number(ie.value); let x = xe.value; 
+    xe.value = a[i]; a[i] = x; reportA("a["+i+"] = "+x);
+}
+function remove() {
+    let i = Number(ie.value);
+    xe.value = a[i]; a.splice(i, 1); reportA("remove "+i);
+}
+function push() {
+    let x = xe.value; let i = Number(ie.value);
+    a.push(x); reportA("push "+x);
+}
+function popA() {
+    xe.value = a.pop(); reportA("pop ");
+}
+function reportA(str) {
+    outA.innerText = "a = [ "+ a.join(", ")+" ] "+a.length;
+    console.log(str);
+}
+function shiftArray() {
+    a.shift();
+    reportA("")
+}
+function deleteAllElements() {
+    a.length = 0;
+    reportA("");
+}
+function sortArray() {
+    a.sort();
+    reportA("sort");
+}
+function sumElements() {
+    let total = 0;
+    for (let i =  0; i < a.length; i++) {
+	total = total + parseInt(a[i]);
+    }
+    outB.innerText = "total: " + total;
+}
+function showElements() {
+     outA.innerText = a.join(" - ")
+}
+
+</script>
+
+<body>
+<h2 id=title></h2>
+
+<p id=outA></p>
+<p id=outB>total: </p>
+<p>
+i = <input type=number id=ie value=1  style="width:40px"> &emsp; 
+x = <input type=text   id=xe value=53 style="width:99px"> 
+</p><p>
+<input type=button value="a[i]=x"  onClick="modify()">
+<input type=button value="remove"  onClick="remove()">
+<input type=button value="push x"  onClick="push()">
+<input type=button value="x=pop"   onClick="popA()">
+<input type=button value="shift"   onClick="shiftArray()">
+<input type=button value="sort"   onClick="sortArray()">
+<input type=button value="topla"   onClick="sumElements()">
+<input type=button value="Dizi Elemanlarını sil"   onClick="deleteAllElements()">
+<input type=button value="Show"   onClick="showElements()">
+</p>
+
+<hr />
+<p>Ref: 
+<a href="https://www.w3schools.com/js/js_arrays.asp" target="ExternalDocument">Array Examples</a></p>
+<p>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections" target="ExternalDocument">Set Examples</a>
+</p>
+
+<script>
+    title.innerText = document.title;
+    const a = [234, "abc", "son"];  //initially
+    reportA("start");
+</script>
+
+</body>
+</html>
