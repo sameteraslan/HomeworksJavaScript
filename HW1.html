@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Array Methods</title>
+</head>
+
+<script>
+"use strict";
+// replaceAll metodu stackoverflow'dan alınmıştır. https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+var dizi = []
+var avg = {}
+var maxmark = []
+function add() {
+	dizi.push([course_name.value, midterm_mark.value, final_mark.value])
+	console.log(dizi)
+}
+
+function average() {
+	for (let i = 0; i < dizi.length; i++) {
+		avg[dizi[i][0]] = (Number(dizi[i][1]) + Number(dizi[i][2])) / 2
+	}
+	console.log(avg);
+	printAvg();
+}
+
+function maximum() {
+	let maxvalue = 0
+	let maxvaluename = 0
+	for (let i = 0; i < dizi.length; i++) {
+		if (maxvalue < (Number(dizi[i][1]) + Number(dizi[i][2])) / 2) {
+			maxvalue = (Number(dizi[i][1]) + Number(dizi[i][2])) / 2;
+			maxvaluename = dizi[i][0];
+		}
+	}
+	maxmark =  [maxvaluename, maxvalue]
+	console.log(maxmark)
+	printMax(maxmark)
+}
+
+function printDizi() {
+	print_name.innerHTML = ""
+	print_midterm.innerHTML = ""
+	print_final.innerHTML = ""
+	midtermhead.innerHTML = "Midterm"
+	finalhead.innerHTML = "Final"
+	for (let i = 0; i < dizi.length; i++) {
+		print_name.textContent += dizi[i][0] + " "
+		print_midterm.textContent += dizi[i][1] + " "
+		print_final.textContent += dizi[i][2] + " "
+		
+	}
+	print_name.innerHTML = print_name.innerHTML.replaceAll(' ', '<br>')
+	print_midterm.innerHTML = print_midterm.innerHTML.replaceAll(' ', '<br>')
+	print_final.innerHTML = print_final.innerHTML.replaceAll(" ", "<br>")
+	console.log(print_final.textContent)
+}
+
+function printAvg() {
+	print_name.innerHTML = ""
+	print_midterm.innerHTML = ""
+	midtermhead.innerHTML = "Average"
+	finalhead.innerHTML = ""
+	print_final.textContent = ""
+	for (let i = 0; i < dizi.length; i++) {
+		print_name.textContent += dizi[i][0] + " "
+		print_midterm.textContent += (Number(dizi[i][1]) + Number(dizi[i][2])) / 2 + " "
+		
+	}
+	print_name.innerHTML = print_name.innerHTML.replaceAll(' ', '<br>')
+	print_midterm.innerHTML = print_midterm.innerHTML.replaceAll(' ', '<br>')
+	console.log(print_final.textContent)
+}
+
+function printMax(maxmark) {
+	print_name.innerHTML = ""
+	print_midterm.innerHTML = ""
+	midtermhead.innerHTML = "Max"
+	finalhead.innerHTML = ""
+	print_final.textContent = ""
+	
+	print_name.textContent = maxmark[0]
+	print_midterm.textContent = maxmark[1]
+}
+
+</script>
+
+<body>
+<h1>Add Course</h1>
+
+<table>
+  <tr style="text-align:left;">
+   <th><text style="font-weight:bold;text-align:left;">Name</text></th>
+   <th><input type=text id=course_name></th> 
+  </tr>
+  <tr style="text-align:left;">
+   <th><text style="font-weight:bold;text-align:left;">Midterm</text></th>
+   <th><input type=number id=midterm_mark></th> 
+  </tr>
+  <tr style="text-align:left;">
+   <th><text style="font-weight:bold;text-align:left;">Final</text></th>
+   <th><input type=number id=final_mark></th> 
+  </tr>
+  <tr style="text-align:left;">
+   <th><input type=button value="Add"  onClick="add()"></th> 
+  </tr>
+  <tr style="text-align:left;">
+   <th><input type=button value="Print"  onClick="printDizi()"></th>
+   <th><input type=button value="Avg"  onClick="average()"> 
+   <input type=button value="Max"   onClick="maximum()"></th>
+  </tr>
+</table>
+
+<table>
+  <tr>
+   <th><text>Name</text></th>
+   <th><text id="midtermhead">Midterm</text></th>
+   <th><text id="finalhead">Final</text></th>
+  </tr>
+  <tr>
+   <th><text id="print_name" style="font-weight: normal;"></text></th>
+   <th><text id="print_midterm" style="font-weight: normal;"></text></th>
+   <th><text id="print_final" style="font-weight: normal;"></text></th>
+  </tr>
+</table>
+</body>
+</html>
