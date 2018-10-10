@@ -7,4 +7,4 @@
 
 3. [HW1](https://sameteraslan.github.io/HomeworksJavaScript/HW1.html)
 
-4. [CW3](https://sameteraslan.github.io/BLM305/work)
+4. [CW3](https://sameteraslan.github.io/BLM305/work/inspector.html)
