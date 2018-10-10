@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://maeyler.github.io/JS/sss/inspector.css" 
+          rel="stylesheet" media="all">
+    <script src="https://maeyler.github.io/JS/sss/inspector.js"></script>
+    <script src="c4_data.js"></script>
+    <title>Inspector </title>
+</head>
+
+<body>
+<p><b id=docName></b> &nbsp;
+<a href="https://maeyler.github.io/JS/sss/">Read me</a> &nbsp;
+<a href="https://maeyler.github.io/JS/sss/Turkish">Turkish</a>
+</p>
+
+<script>
+"use strict";
+var a, c, code;  //global variables
+function init() {
+    let s = "Small is beautiful", d = new Date(),
+       len = 123, name = "Circle", pi = Math.PI, 
+       sqrt = Math.sqrt, power = Math.pow;
+    a = [0, 11, "22", "abc"];
+    c = {len, name, pi, sqrt, power};
+    let menu = {s, d, a, c, window, JOURNAL, EVENTS};
+    MENU = new Chap4(); //global
+    for (let k in menu) MENU[k] = menu[k];
+    display(MENU); 
+}
+    docName.innerText = document.title+" "+VERSION;
+    try {
+        inspect(document.body, init); //makes the table
+        //inp.value = "new Number(c.pi)";
+        code = document.createElement("pre");
+        document.body.appendChild(code);
+        code.innerText = Entry;
+    } catch(e) {
+        reportError(e);
+    }
+</script>
+
+</body>
+</html>
