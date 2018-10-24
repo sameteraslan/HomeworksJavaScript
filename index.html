@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://maeyler.github.io/JS/sss/inspector.css" 
+          rel="stylesheet" media="all">
+    <script src="https://maeyler.github.io/JS/sss/inspector.js"></script>
+    <script src="c4_data.js"></script>
+    <script src="async.js"></script>
+    <script src="database.js"></script>
+    <title>Eloquent JavaScript </title>
+</head>
+
+<body>
+<p><b id=docName></b> &nbsp;
+<a href="https://maeyler.github.io/JS/sss/">Read me</a> &nbsp;
+<a href="https://maeyler.github.io/JS/sss/Turkish">Turkish</a>
+</p>
+
+<script>
+"use strict";
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;  
+    }
+    toString() {
+        return "x: " + this.x + " y:" + this.y;
+    }
+}
+
+class Point3D extends Point {
+    constructor(x, y, z) {
+        super(x, y);  
+        this.z = z;
+    }
+    toString() {
+        return "x: " + this.x + " y:" + this.y + " z:" + this.z;
+    }
+}
+
+
+class Distance {
+    constructor(km, miles) {
+        this.km = km;
+        this.miles = miles;  
+    }
+    toString() {
+        return "km: " + this.km + " miles:" + this.miles;
+    }
+} 
+
+
+class CW4 extends Menu {
+    constructor() {
+        super();
+	this.distance = new Distance(20, 435);
+     	this.point = new Point(20, 435);
+	this.point3D = new Point3D(20, 435, 50);
+	this.student = new Student("2344", "SAMET", 3.98, ["BP1", "BP2", "BLM305"])
+	this.course = new Course("BLM305", "2018", "Friday", ["105", "106", "406"])
+      }
+      
+}
+var a, b, c, code;  //global variables
+function init() {
+    let
+       len = 123, name = "Circle", pi = Math.PI, 
+       sqrt = Math.sqrt, power = Math.pow;
+    a = [0, 11, "22", "abc"];
+    c = {len, name, pi, sqrt, power};
+
+    display(new CW4());
+}
+    docName.innerText = "Inspector "+VERSION;
+    try {
+        inspect(document.body, init); //makes the table
+        //inp.value = "new Number(c.pi)";
+    } catch(e) {
+        reportError(e);
+    }
+</script>
+
+<p>
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://sameteraslan.github.io/HomeworksJavaScript/sayac.html">CW1</a> &emsp;
+<a href="https://sameteraslan.github.io/HomeworksJavaScript/ArrayIslemleri.html">CW2</a> &emsp;
+<a href="https://sameteraslan.github.io/HomeworksJavaScript/inspector.html">CW3</a> &emsp;
+<a href="https://sameteraslan.github.io/HomeworksJavaScript/HW1.html">HW1</a>
+</p>
+<pre id=disp1></pre>
+<img id=disp2 />
+
+</body>
+</html>
