@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://maeyler.github.io/JS/hard/Select%20file.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width">
+    <title>Read local file </title>
+<script>
+"use strict";
+let text1;
+
+function isText(f) {
+    console.assert(f instanceof File);
+    return f.type.startsWith("text") || f.name.endsWith(".md")
+         || f.name.endsWith(".js") || f.name.endsWith(".java");
+}
+function fileSelect(t) { 
+    msg.innerText = "";
+    for (let i of t.files) {
+	var reader = new FileReader();
+	reader.onload = function(evt) { //text
+	    const a = evt.target.result.replace(/</g, "&lt;");
+	};
+
+	reader.readAsText(i);
+
+	if (reader.result == text1) {
+             out.innerText += "İçerik " + i.name + " ile ayni";
+        }
+
+        else {
+	     out.innerText += "İçerik " + i.name + " ile farklı";
+	}  
+    }
+
+}
+
+function readText() {
+    fetch(url.value)
+      .then(r => r.text()) 
+      //response of fetch() is r
+      .then(t => text1=t);  
+      //response of text() is t
+     console.log("okundu")
+}
+function readBlob() {
+    fetch(url.value)
+      .then(r => r.blob())  //response r
+      .then(b => report(b.size + " bytes"));
+}
+
+
+</script><style>
+  .thumb {
+     width: 400px;
+     border: 1px solid #000;
+     margin: 10px 5px 0 0;
+  }
+</style></head>
+
+
+
+
+
+<body>
+<h2 id="title">Read local file</h2>
+<input type="text" id="url" value="https://maeyler.github.io/BLM305/README.md">
+<button onclick="readText()">Read Remote</button>
+<input type="file" id="button" onchange="fileSelect(this)" multiple>
+<p>
+<output id="msg">Select text or image </output>
+<output id="out"></output>
+</p>
+
+<hr>
+<b>Sample code</b>
+<pre id="sample" style="overflow-x:auto">function fileSelect(t) { //target is the button<br>    console.assert(t == button);<br>    const f = t.files[0];<br>    const size = " "+f.size+" bytes ";<br>    msg.innerText = f.type+size;<br>    if (f.type.startsWith("image")) {<br>        reader.onload = function(evt) {<br>            const a = evt.target.result; //image source<br>            out.innerHTML = "&lt;img class=thumb "<br>                +"src='"+a+"' title='"+f.name+"' /&gt;";<br>            console.log(f.name+size+f.type);<br>        };<br>        reader.readAsDataURL(f);<br>    } else if (isText(f)) {<br>        reader.onload = function(evt) { //text<br>            const a = evt.target.result.replace(/&lt;/g, "&amp;lt;");<br>            out.innerHTML = "&lt;pre&gt;"+a+"&lt;/pre&gt;";<br>            console.log(f.name+size+f.type);<br>        };<br>        reader.readAsText(f);<br>    } else {<br>        msg.innerText += "Unknown ";<br>        out.innerText = "";<br>    }<br>}</pre>
+<hr>
+<p>Ref: <a href="https://www.html5rocks.com/en/tutorials/file/dndfiles/" target="ExternalDocument">File selection</a>
+</p>
+
+<script>
+    title.innerText = document.title;
+    sample.innerText = fileSelect.toString();
+</script>
+
+
+
+</body></html>
