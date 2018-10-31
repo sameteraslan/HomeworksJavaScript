@@ -12,3 +12,5 @@
 5. [CW4](https://sameteraslan.github.io/HomeworksJavaScript/index.html)
 
 5. [HW2](https://sameteraslan.github.io/HomeworksJavaScript/database.html)
+
+6. [CW5](https://sameteraslan.github.io/HomeworksJavaScript/CW5.html)
