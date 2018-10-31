@@ -9,7 +9,7 @@
 
 4. [CW3](https://sameteraslan.github.io/HomeworksJavaScript/inspector.html)
 
-5. [CW4](https://sameteraslan.github.io/HomeworksJavaScript/index.html)
+5. [CW4](https://sameteraslan.github.io/HomeworksJavaScript/cw4.html)
 
 5. [HW2](https://sameteraslan.github.io/HomeworksJavaScript/database.html)
 
