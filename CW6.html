@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="cw5.js"></script>
+    <title>Set Intersection </title>
+
+<script>
+"use strict";
+const url = "https://maeyler.github.io/JS/data/";
+const array = [], set = new Set();
+const myMap = new Map();
+let id;
+for (let i = 0; i < 10000; i++) {
+    id = Math.floor(Math.random() * 10000) + 116690070;
+    set.add(id + "");
+}
+
+function readData(file) {
+    console.log("readData "+file);
+    fetch(url+file)
+        .then(r => r.text(), console.log)
+        .then(addStudents, console.log);
+}
+function parseStudent(line) {
+    let b = line.split("\t");
+    let id = b[0], name = b[1], gpa = b[2];
+    let std = new Student(id, name, gpa);
+    let list = [];
+    for (let i=3; i<b.length; i++) 
+        list.push(b[i]);
+    std.courses = list
+    return std
+}
+function addStudents(txt) {
+    let msg = "\nData contains ";
+    msg += txt.length+" chars, ";
+    let a = txt.split("\n");
+    msg += a.length+" lines \n";
+    for (let s of a) {
+      let std = parseStudent(s);
+      myMap.set(std.id, std);
+      array.push(std.id);
+    }
+    console.log(myMap.size)
+}
+function intersect1() { //fast
+    let count = 0;
+    for (let x of set) {
+        if (myMap.has(x)) 
+            count++;
+    }
+    out.innerText += "\n map: " + count + ".";
+    console.log("Map Time: ");
+    return count;
+}
+function intersect2() { //slow
+    let counter = 0;
+    for (let x of set) {
+        if (array.includes(x)) 
+            counter++;
+    }
+    out.innerText += "\n array: " + counter + ".";
+    console.log("Array Time: ");
+    return counter;
+
+}
+function timing(f) {
+    let t = performance.now()
+    let x = f()  //calculate intersection by itself
+    t = performance.now() - t
+    let s = f.name+": "+t.toPrecision(3)+" msec.";
+    out.innerText += "\n"+s; console.log(s)
+}
+</script>
+</head>
+
+<body>
+<h2 id=title></h2>
+<button onClick='timing(intersect1)'>MAP</button>
+<button onClick='timing(intersect2)'>ARRAY</button>
+<p id=out></p>
+<hr />
+<b>Sample code</b>
+<pre id=sample></pre>
+<hr />
+
+<script>
+    title.innerText = document.title;
+    sample.innerText = intersect1+"\n"+intersect2;
+    readData("Students.txt")
+</script>
+
+</body>
+</html>
+
