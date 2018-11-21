@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+  <style>
+	#clock {
+	font-size: 48px;
+	background-color: rgb(0, 0, 0);
+	color: white;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+        margin-left: 500px;
+    	margin-right: 500px;
+	}
+
+	#animate {
+	  width: 30px;
+	  height: 30px;
+	  position: absolute;
+          top: 250px
+	}
+  </style>
+</head>
+
+<body id=body style = "background-color: rgb(200, 200, 200);" >
+<p id=clock></p>
+<p>
+<button id="sendArrow" onClick="polynomialMove()">Send Arrow</button>
+</p>
+<p id=out>Created by SAMET ERASLAN</p>
+&nbsp;&nbsp;&nbsp;<p></p>
+<div id ="animate"><img id ="arrows" src="arrows.png"></div>
+
+<img id="arrow" src="arrow.png">
+
+<script>
+"use strict";
+var random_degree = Math.floor(Math.random() * 30);
+var hm, time;  //for clock
+var b = document.getElementById("arrow");
+b.style.transform = "rotate(" + (-random_degree) + "deg)";
+var c = document.getElementById("arrows");
+c.style.transform = "rotate(" + (-random_degree) + "deg)";
+var element_left = c.style.left;
+var element_top = c.style.top;
+function twoDigits(t) {
+    if (t>9) return ""+t;
+    return "0"+t;
+}
+function setHourMin() {
+    const d = new Date();
+    hm = twoDigits(d.getHours())+":"
+        +twoDigits(d.getMinutes());
+    document.title = "Clock "+hm; 
+    //console.log(hm);
+}
+function count() {
+    const d = new Date();
+    let sec = twoDigits(d.getSeconds());
+    if (sec == "00") setHourMin();
+    clock.innerText = hm+":"+sec;
+    time = setTimeout(count, 1000);
+}
+function updateTime() {
+	var x = 1;
+	var d, hours, mins, secs, mills;
+	d = new Date();
+	var dateHours = d.getHours();
+	var dateMins = d.getMinutes();
+	var dateSecs = d.getSeconds();
+	var dateMills = d.getMilliseconds();
+	hours = Math.floor(dateHours * (256 / 23));
+	mins = Math.floor(dateMins * (256 / 59));
+	secs = Math.floor(dateSecs * (256 / 59));
+	mills = 1 - Math.floor(dateMills * (100 / 1000)) / 100;
+	var b = document.getElementById("body");
+	b.style.backgroundColor = "rgb(" + hours + ", " + mins + ", " + secs + ")";
+
+	setTimeout(updateTime, x * 10);
+}
+
+function polynomialMove() {
+  sendArrow.animate(t3, 1000);
+  var element = document.getElementById("animate"); 
+  element.style.left = element_left;
+  element.style.top = element_top;  
+  var current_position_x = element.style.left;
+  var current_position_y = element.style.top;
+  var first_y = element.style.top;
+  var id = setInterval(frame, 1);
+  var a = document.getElementById("arrows");
+  a.animate(t2, 5700);
+  function frame() {
+    if (current_position_y > 500 || current_position_x > 1300) {
+      current_position_x = 1000;
+      current_position_y = 300;
+      clearInterval(id);
+ 
+    } else {
+      current_position_x++;
+      current_position_y = 0.00013297872340425532 * current_position_x * current_position_x - 0.1595744680851064 * current_position_x + 250;
+      //a.style.transform = "rotate(" + Math.tan(Math.abs(current_position_y / current_position_x)) + "deg)";
+      element.style.top = current_position_y + 'px'; 
+      element.style.left = current_position_x + 'px'; 
+	console.log("atan " + Math.tan(current_position_y / current_position_x));
+    }
+  }
+//setTimeout(updateTime, 10);
+}
+const 
+  t1 = { transform: ["translateX(0)", "translateX(300px)", "translateX(0)"] },
+  t2 = { transform: ["rotate(" + (-random_degree) + "deg)", "rotate(0)", "rotate(30deg)"] },
+  t3 = { background: ["yellow", "cyan"] },
+  t4 = { fontSize: ["100%", "150%", "100%", "75%", "100%"] };
+  setHourMin(); count();
+updateTime();
+</script>
+
+</body>
+</html>
+
+
