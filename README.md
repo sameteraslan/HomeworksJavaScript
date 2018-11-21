@@ -16,3 +16,5 @@
 6. [CW5](https://sameteraslan.github.io/HomeworksJavaScript/CW5.html)
 
 7. [CW6](https://sameteraslan.github.io/HomeworksJavaScript/CW6.html)
+
+8. [CW6](https://sameteraslan.github.io/HomeworksJavaScript/CW7/table.html)
