@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://maeyler.github.io/JS/hard/Table%20maker.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width">
+    <title>My Gallery </title>
+<link rel="manifest" href="manifest.json">
+<script>
+"use strict";
+//June 8, 2018 MAE -- basis for 
+//https://maeyler.github.io/Visual-Mujam/
+//
+var my_gallery = [{brand:"mercedes", model:"Benz", date:"1995"},
+	      {brand:"volvo", model:"xc90", date:"2000"},
+	      {brand:"volvo", model:"s90", date:"2018"},
+	      {brand:"BMW", model:"720d", date:"2005"},
+	      {brand:"Audi", model:"A1", date:"1980"},
+	      {brand:"Audi", model:"TT", date:"2007"},
+ 	      {brand:"Chevrolet", model:"Camaro", date:"2018"},
+	      {brand:"Chevrolet", model:"Camaro", date:"2018"}];
+
+function makeRows() {
+    let row = "<th></th>";
+    for (let q of Object.keys(my_gallery[0])) 
+        row += "<th>"+q+"</th>";
+    let text = "<tr>"+row+"</tr>";
+    for (let i = 1; i <= my_gallery.length; i++) {
+       row = "<th>"+i+"</th>";
+       for (let b of Object.values(my_gallery[i-1])) {
+ 
+	  
+          row += "<td>"+b+"</td>";
+       }
+       text += "<tr>"+row+"</tr>";
+    }
+    const t = text.length+" chars";
+    
+    tablo.innerHTML = text; out.innerText = t; 
+}
+
+</script><style>
+    table { border-collapse: collapse; }
+    th { color: blue; padding: 5px 5px; }
+    td { 
+        border: 1px solid blue; 
+        padding: 5px 5px; 
+        text-align: center; 
+    }
+    td:hover .tip { visibility: visible; }
+    .tip {
+        visibility: hidden;
+        font-size: small;
+        background-color: blue;
+        color: white;
+        text-align: center;
+        padding: 5px 5px;
+        position: absolute;
+    }
+</style></head>
+
+
+<body>
+<center>
+<h2 id="title">Tablo Oluştur</h2>
+
+
+<table id="tablo"><tbody><tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr><tr><th>1</th><td>1,1<span class="tip">C1</span></td><td>1,2<span class="tip">C2</span></td><td>1,3<span class="tip">C3</span></td><td>1,4<span class="tip">C4</span></td><td>1,5<span class="tip">C5</span></td></tr><tr><th>2</th><td>2,1<span class="tip">C6</span></td><td>2,2<span class="tip">C7</span></td><td>2,3<span class="tip">C8</span></td><td>2,4<span class="tip">C9</span></td><td>2,5<span class="tip">C10</span></td></tr><tr><th>3</th><td>3,1<span class="tip">C11</span></td><td>3,2<span class="tip">C12</span></td><td>3,3<span class="tip">C13</span></td><td>3,4<span class="tip">C14</span></td><td>3,5<span class="tip">C15</span></td></tr></tbody></table>
+
+<p id="out" style="font-size:small">999 chars</p>
+
+
+</center>
+
+<script>
+    title.innerText = document.title;
+    makeRows();
+</script>
+
+
+ 
+</body></html>
