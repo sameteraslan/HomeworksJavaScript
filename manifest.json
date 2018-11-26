@@ -5,7 +5,7 @@
   "start_url": "/HomeworksJavaScript",
   "display": "standalone",
   "background_color": "yellow",
-  "thema_color": "yellow",
+  "theme_color": "yellow",
   "icons": [
     {
       "src": "JS.png",
