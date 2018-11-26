@@ -2,7 +2,7 @@
   "name": "SAMET ERASLAN",
   "short_name": "BLM305",
   "description": "Advanced Programming Homeworks and Class Works",
-  "start_url": "/HomeworksJavaScript",
+  "start_url": "/HomeworksJavaScript/",
   "display": "standalone",
   "background_color": "yellow",
   "theme_color": "yellow",
