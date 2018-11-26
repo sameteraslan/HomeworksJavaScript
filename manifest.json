@@ -3,6 +3,7 @@
   "start_url": "/HomeworksJavaScript",
   "display": "standalone",
   "background_color": "cyan",
+  "thema_color": "cyan",
   "icons": [
     {
       "src": "JS.png",
