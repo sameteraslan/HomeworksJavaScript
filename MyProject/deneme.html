@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+
+nav {    
+  display: block;
+  margin: 0;
+  text-align: center;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+.nav a {
+  display: block; 
+  background: orange; 
+  color: white; 
+  text-decoration: none;
+  padding: 0.8em 1.8em;
+  text-transform: uppercase;
+  position: relative;
+}
+.nav{  
+  vertical-align: top; 
+  display: inline-block;
+
+  border-radius: 6px;
+}
+.nav li {
+  position: relative;
+}
+.nav > li { 
+  float: left; 
+  border-bottom: 4px white solid; 
+  margin-right: 1px; 
+  text-decoration: none;
+} 
+.nav > li > a { 
+  margin-bottom: 1px;
+
+}
+.nav > li:hover { 
+  border-bottom-color: orange;
+}
+
+.nav > li:first-child { 
+  border-radius: 4px 0 0 4px;
+} 
+.nav > li:first-child > a { 
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child { 
+  border-radius: 0 0 4px 0; 
+  margin-right: 0;
+} 
+.nav > li:last-child > a { 
+  border-radius: 0 4px 0 0;
+}
+.nav li li a { 
+  margin-top: 1px;
+}
+
+.nav li a:first-child:nth-last-child(2):before { 
+  content: ""; 
+  position: absolute; 
+  height: 0; 
+  width: 0; 
+  text-decoration: none;
+  border: 5px solid transparent; 
+  top: 50% ;
+  right: 5px;  
+ }
+
+/* submenu positioning*/
+.nav ul {
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1;
+  left: -99999em;
+}
+.nav > li:hover > ul {
+  left: auto;
+  margin-top: 0px;
+  min-width: 100%;
+}
+.nav > li li:hover > ul { 
+  left: 100%;
+  margin-left: 1px;
+  top: -1px;
+}
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before { 
+  border-top-color: white; 
+}
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent; 
+  border-bottom-color: white; 
+  margin-top:-5px
+}
+.nav li li > a:first-child:nth-last-child(2):before {  
+  border-left-color: white; 
+  margin-top: -5px
+}
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent; 
+  border-right-color: white;
+  right: 10px; 
+}
+
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+
+
+input[type=text] {
+    width: 200px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 40%;
+}
+
+</style>
+
+<nav>
+  <ul class="nav">
+    <li><a href="#">ANASAYFA</a></li>
+    <li><a href="#">KATEGORİ</a>
+      <ul>
+        <li><a href="#">KONUT</a>
+	<ul>
+            <li><a href="#">SATILIK</a></li>
+            <li><a href="#">KİRALIK</a></li>
+            <li><a href="#">GÜNLÜK KİRALIK</a></li>
+        </ul>
+	</li>
+        <li><a href="#">İŞYERİ</a>
+	<ul>
+            <li><a href="#">SATILIK</a></li>
+            <li><a href="#">KİRALIK</a></li>
+        </ul>
+	</li>
+        <li><a href="#">ARSA</a>
+	<ul>
+            <li><a href="#">SATILIK</a></li>
+            <li><a href="#">KİRALIK</a></li>
+        </ul>
+	</li>
+        <li><a href="#">BİNA</a>
+	<ul>
+            <li><a href="#">SATILIK</a></li>
+            <li><a href="#">KİRALIK</a></li>
+        </ul>
+	</li>
+      </ul>
+    </li>
+    <li><a href="#" id="button_search" onClick="searchingVisibility()">ARAMA</a></li>
+    <li><a href="#">YARDIM</a></li>
+    <li><a href="#">HAKKIMIZDA</a></li>
+    <li><a href="#">İLETİŞİM</a></li>
+  </ul>
+</nav><br>
+
+<script>
+function searchingVisibility() {
+	var searching = document.getElementById("input_search");
+	searching.style.visibility = "visible";
+}
+
+function searchingVisibilityHidden() {
+	var searching_input = document.getElementById("input_search");
+	searching_input.style.visibility = "hidden";
+
+}
+</script>
+</head>
+<body>
+<form>
+<center>
+  <input style="visibility:hidden;" id="input_search" type="text" name="search" placeholder="Search..">
+</center>
+</form><br>
+<center>
+<table>
+  <tr>
+   <th style="padding: 30px;">
+	<div class="card">
+  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
+  	<h1>Tailored Jeans</h1>
+  	<p class="price">$19.99</p>
+  	<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+  	<p><button>Add to Cart</button></p>
+	</div>
+   </th>
+   <th style="padding: 30px;">
+	<div class="card">
+  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
+  	<h1>Tailored Jeans</h1>
+  	<p class="price">$19.99</p>
+  	<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+  	<p><button>Add to Cart</button></p>
+	</div>
+   </th>
+   <th style="padding: 30px;">
+	<div class="card">
+  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
+  	<h1>Tailored Jeans</h1>
+  	<p class="price">$19.99</p>
+  	<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+  	<p><button>Add to Cart</button></p>
+	</div>
+   </th>
+  </tr>
+  <tr>
+   <th style="padding: 30px;">
+	<div class="card">
+  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
+  	<h1>Tailored Jeans</h1>
+  	<p class="price">$19.99</p>
+  	<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+  	<p><button>Add to Cart</button></p>
+	</div>
+   </th>
+   <th style="padding: 30px;">
+	<div class="card">
+  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
+  	<h1>Tailored Jeans</h1>
+  	<p class="price">$19.99</p>
+  	<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+  	<p><button>Add to Cart</button></p>
+	</div>
+   </th>
+   <th style="padding: 30px;">
+	<div class="card">
+  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
+  	<h1>Tailored Jeans</h1>
+  	<p class="price">$19.99</p>
+  	<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+  	<p><button>Add to Cart</button></p>
+	</div>
+   </th style="padding: 30px;">
+  </tr>
+</table>
+</center>
+
+</body>
+</html>

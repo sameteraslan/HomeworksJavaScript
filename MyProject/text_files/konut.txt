@@ -1,0 +1,10 @@
+515161		S	images/0001.png		500.000 	VADİSTANBUL TERAS YATIRIMLIK 2+1 BÜYÜK TİP KÖŞE DAİRE SATILIK		Detayli bilgi için arayin. 555 555 55 55	İstanbul-Pendik
+515162		S	images/0002.png		350.000		PARS-İ EMLAKTAN 3+2 KİRALIK DUBLEX SİTE İÇİ	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kagithane
+515163		S	images/0003.png		223.000		OKUL DEVLET HASTANESI  E-5 ÜNÜVERSTE  FIRIN MARKET ECZANE  YÜRÜME MESAFESINDE		Detayli bilgi için arayin. 555 555 55 55	İstanbul-Sultanbeyli
+515164		K	images/0004.png		1.000		GÖKTÜRK GARDEN GYM'DEN SATILIK 4+2 VİLLA	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Uskudar
+515165		K	images/0005.png		1.200		AİLENİZ VE SEVDİKLERİNİZDE HUZUR İÇİNDE	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kadikoy
+515166		K	images/0006.png		1.500		AYRINTIL BİLGİ VE RANDEVU İÇİN LÜTFEN ARAYINIZ		Detayli bilgi için arayin. 555 555 55 55	İstanbul
+515167		K	images/0007.png		500		MURAT ÖZPINAR 0538 622 00 19		Detayli bilgi için arayin. 555 555 55 55	İstanbul-Fatih
+515168		GK	images/0008.png		100		VADİSTANBUL TERAS YATIRIMLIK 2+1 BÜYÜK TİP KÖŞE DAİRE SATILIK		Detayli bilgi için arayin. 555 555 55 55	İstanbul-Pendik
+515169		GK	images/0009.png		80		VADİSTANBUL TERAS YATIRIMLIK 2+1 BÜYÜK TİP KÖŞE DAİRE SATILIK		Detayli bilgi için arayin. 555 555 55 55	İstanbul-Sariyer
+515170		GK	images/0010.png		65		VADİSTANBUL TERAS YATIRIMLIK 2+1 BÜYÜK TİP KÖŞE DAİRE SATILIK		Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kurtkoy
