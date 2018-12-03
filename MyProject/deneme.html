@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8"/>
+<title>Website Project</title>
+<script src="database.js"></script>
 <style>
 
 nav {    
@@ -202,6 +204,9 @@ input[type=text]:focus {
 </nav><br>
 
 <script>
+var database = new Database();
+readData("konut.txt")
+
 function searchingVisibility() {
 	var searching = document.getElementById("input_search");
 	searching.style.visibility = "visible";
