@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <meta charset="UTF-8"/>
+
 <title>Website Project</title>
 <script src="database.js"></script>
 <style>
+
+/* Responsive navigation menu (for mobile devices) */
+@media screen and (max-width: 600px) {
+  .nav a, .nav li, .card{
+    float: none;
+    display: block;
+  }
+}
 
 nav {    
   display: block;
   margin: 0;
   text-align: center;
+  min-width: 200px;
 }
 nav ul {
   margin: 0;
   padding: 0;
   list-style: none;
   text-decoration: none;
+
 }
 .nav a {
   display: block; 
@@ -29,11 +41,11 @@ nav ul {
 .nav{  
   vertical-align: top; 
   display: inline-block;
-
   border-radius: 6px;
 }
 .nav li {
   position: relative;
+  min-width: 180px;
 }
 .nav > li { 
   float: left; 
@@ -43,29 +55,14 @@ nav ul {
 } 
 .nav > li > a { 
   margin-bottom: 1px;
-
 }
 .nav > li:hover { 
   border-bottom-color: orange;
 }
 
-.nav > li:first-child { 
-  border-radius: 4px 0 0 4px;
-} 
-.nav > li:first-child > a { 
-  border-radius: 4px 0 0 0;
-}
-.nav > li:last-child { 
-  border-radius: 0 0 4px 0; 
-  margin-right: 0;
-} 
-.nav > li:last-child > a { 
-  border-radius: 0 4px 0 0;
-}
 .nav li li a { 
   margin-top: 1px;
 }
-
 .nav li a:first-child:nth-last-child(2):before { 
   content: ""; 
   position: absolute; 
@@ -76,7 +73,6 @@ nav ul {
   top: 50% ;
   right: 5px;  
  }
-
 /* submenu positioning*/
 .nav ul {
   position: absolute;
@@ -112,21 +108,20 @@ nav ul {
   border-right-color: white;
   right: 10px; 
 }
-
-
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 200px;
   margin: auto;
   text-align: center;
   font-family: arial;
+  max-height: 800px;
+  padding:50px;
+  display: inline-block;
 }
-
 .price {
   color: grey;
   font-size: 22px;
 }
-
 .card button {
   border: none;
   outline: 0;
@@ -138,12 +133,9 @@ nav ul {
   width: 100%;
   font-size: 18px;
 }
-
 .card button:hover {
   opacity: 0.7;
 }
-
-
 input[type=text] {
     width: 200px;
     box-sizing: border-box;
@@ -157,11 +149,9 @@ input[type=text] {
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
-
 input[type=text]:focus {
     width: 40%;
 }
-
 </style>
 
 <nav>
@@ -208,113 +198,78 @@ function searchingVisibility() {
 	var searching = document.getElementById("input_search");
 	searching.style.visibility = "visible";
 }
-
 function searchingVisibilityHidden() {
 	var searching_input = document.getElementById("input_search");
 	searching_input.style.visibility = "hidden";
-
 }
 </script>
 </head>
 <body>
-<script>
-
-readData("konut.txt");
-</script>
 <form>
 <center>
   <input style="visibility:hidden;" id="input_search" type="text" name="search" placeholder="Search..">
 </center>
 </form><br>
 <center>
-<table id="myTable">
-  <tr>
-   <th style="padding: 30px;">
-	<div class="card">
-  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
-  	<h1>Ürün Başlığı</h1>
-  	<p class="price">225.000 TL</p>
-  	<p>Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama</p>
-  	<p><button>İncele</button></p>
-	</div>
-   </th>
-   <th style="padding: 30px;">
-	<div class="card">
-  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
-  	<h1>Ürün Başlığı</h1>
-  	<p class="price">225.000 TL</p>
-  	<p>Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama</p>
-  	<p><button>İncele</button></p>
-	</div>
-   </th>
-   <th style="padding: 30px;">
-	<div class="card">
-  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
-  	<h1>Ürün Başlığı</h1>
-  	<p class="price">225.000 TL</p>
-  	<p>Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama</p>
-  	<p><button>İncele</button></p>
-	</div>
-   </th>
-  </tr>
-  <tr>
-   <th style="padding: 30px;">
-	<div class="card">
-  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
-  	<h1>Ürün Başlığı</h1>
-  	<p class="price">225.000 TL</p>
-  	<p>Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama</p>
-  	<p><button>İncele</button></p>
-	</div>
-   </th>
-   <th style="padding: 30px;">
-	<div class="card">
-  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
-  	<h1>Ürün Başlığı</h1>
-  	<p class="price">225.000 TL</p>
-  	<p>Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama</p>
-  	<p><button>İncele</button></p>
-	</div>
-   </th>
-   <th style="padding: 30px;">
-	<div class="card">
-  	<img src="JS.png" alt="Denim Jeans" style="width:100%">
-  	<h1>Ürün Başlığı</h1>
-  	<p class="price">225.000 TL</p>
-  	<p>Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama</p>
-  	<p><button>İncele</button></p>
-	</div>
-   </th>
-  </tr>
-</table>
+<div id="myTable" style="display:inline;">
+</div>
 </center>
 
 <script>
+const database = new Database();
+const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
+function readData(file) {
+    console.log("readData "+file);
+    if(file.includes("konut.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addKonut).then(makeRows);
+    } 
+/*	else if(file.includes("isyeri.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addIsyeri);
+    }*/
+	else {
+		console.log("File could not find.")
+	}
+}
+function parseKonut(line) {
+    let b = line.split("\t");
+    return b;
+}
 
+/*function parseCourse(line) {
+	let b = line.split("\t");
+	let name = b[0], time = b[1], date = b[2];
+    let rooms = [];
+    for (let i = 3; i < b.length; i++) 
+		rooms.push(b[i]);
+	//bayrak
+    return new Course(b[0], b[1], b[2], rooms);
+}*/
+function addKonut(txt) {
+    //let msg = txt.length+" chars, ";
+    let a = txt.split("\n");
+    //msg += a.length+" lines, ";
+    for (let s of a) {
+		let std = parseKonut(s);
+		database.konut.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+		//console.log(database.students.get(std.id));
+		//keys.push(std.id); vals.push(std);
+    }
+    console.log(database.konut);
+    //report(msg + database.students.size  + " students");
+}
+readData("konut.txt");
 function makeRows() {
     let row = "";
-    let text = "";
-    console.log(database.konut);
-    //for (let i = 1; i <= database.konut.size; i++) {
-        //console.log(i);
-       //for (let b of Object.values(database.konut[i-1])) {
-            let b = Object.values(database.konut[0]);
-            row += '<th style="padding: 30px;"><div class="card"><img src="' + b[1]  + '" alt="Denim Jeans"style="width:100%"> <h1>' + b[3] + '</h1><p class="price">' + b[2] + ' TL</p><p>' + b[4] + '</p> <p><button>İncele</button></p></div></th>';
-	  
-          //row += "<td>"+b+"</td>";
-       //}
-            console.log(row);
-       
-       text += "<tr>"+row+"</tr>";
-        console.log("text yazildi");
-        console.log(text);
-    //}
-    //const t = text.length+" chars";
-    
-    myTable.innerHTML = text; //out.innerText = t; 
+    for (let b of database.konut.values()) {
+	    row += '<div class="card"><img src="' + b[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + b[3] + '</h2><p class="price">' + b[2] + ' TL</p><p>' + b[4] + '</p> <p><button>İncele</button></p></div>';   
+    }
+    myTable.innerHTML = row; //out.innerText = t; 
 }
-makeRows();
-
+//makeRows();
 </script>
 
 </body>
