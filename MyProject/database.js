@@ -3,13 +3,13 @@ function readData(file) {
     console.log("readData "+file);
     if(file.includes("konut.txt")) {
       fetch(url+file)
-          .then(r => r.text(), report)
-          .then(addKonut, report);
+          .then(r => r.text())
+          .then(addKonut);
     } 
 	else if(file.includes("isyeri.txt")) {
       fetch(url+file)
-          .then(r => r.text(), report)
-          .then(addIsyeri, report);
+          .then(r => r.text())
+          .then(addIsyeri);
     }
 	else {
 		console.log("File could not find.")
