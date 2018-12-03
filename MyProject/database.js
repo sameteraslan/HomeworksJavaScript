@@ -35,7 +35,7 @@ function addKonut(txt) {
     //msg += a.length+" lines, ";
     for (let s of a) {
 		let std = parseKonut(s);
-		database.konut.set(b[0], [b[1], b[2], b[3], b[4], b[5], b[6]]);
+		database.konut.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
 		//console.log(database.students.get(std.id));
 		//keys.push(std.id); vals.push(std);
     }
@@ -63,3 +63,5 @@ class Database {
 		this.bina = new Map();
 	}
 }
+
+var database = new Database();
