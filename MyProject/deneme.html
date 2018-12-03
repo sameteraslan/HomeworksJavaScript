@@ -18,9 +18,11 @@
 
 nav {    
   display: block;
-  margin: 0;
   text-align: center;
   min-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  float: center;
 }
 nav ul {
   margin: 0;
@@ -156,7 +158,7 @@ input[type=text]:focus {
 
 <nav>
   <ul class="nav">
-    <li><a href="#">ANASAYFA</a></li>
+    <li><a href="#" style="float:initial;">ANASAYFA</a></li>
     <li><a href="#">KATEGORİ</a>
       <ul>
         <li><a href="#">KONUT</a>
@@ -192,7 +194,6 @@ input[type=text]:focus {
     <li><a href="#">İLETİŞİM</a></li>
   </ul>
 </nav><br>
-
 <script>
 function searchingVisibility() {
 	var searching = document.getElementById("input_search");
@@ -205,10 +206,20 @@ function searchingVisibilityHidden() {
 </script>
 </head>
 <body>
-<form>
-<center>
-  <input style="visibility:hidden;" id="input_search" type="text" name="search" placeholder="Search..">
-</center>
+<form >
+	<center style="visibility:hidden;" id="input_search">
+	  	<input  type="text" name="search" placeholder="Search.."><br>
+		<fieldset style="width:35%;">
+			<div class="item">
+		    		<input type="checkbox" id="a">
+		    		<label for="a">Satılık</label>&nbsp;&nbsp;
+				<input type="checkbox" id="b">
+		    		<label for="b">Kiralık</label>&nbsp;&nbsp;
+		    		<input type="checkbox" id="c">
+		    		<label for="c">Günlük Kiralık</label>&nbsp;&nbsp;
+			</div>
+		</fieldset>
+	</center>
 </form><br>
 <center>
 <div id="myTable" style="display:inline;">
@@ -239,37 +250,22 @@ function parseKonut(line) {
     return b;
 }
 
-/*function parseCourse(line) {
-	let b = line.split("\t");
-	let name = b[0], time = b[1], date = b[2];
-    let rooms = [];
-    for (let i = 3; i < b.length; i++) 
-		rooms.push(b[i]);
-	//bayrak
-    return new Course(b[0], b[1], b[2], rooms);
-}*/
 function addKonut(txt) {
-    //let msg = txt.length+" chars, ";
     let a = txt.split("\n");
-    //msg += a.length+" lines, ";
     for (let s of a) {
 		let std = parseKonut(s);
 		database.konut.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
-		//console.log(database.students.get(std.id));
-		//keys.push(std.id); vals.push(std);
     }
     console.log(database.konut);
-    //report(msg + database.students.size  + " students");
 }
 readData("konut.txt");
 function makeRows() {
     let row = "";
-    for (let b of database.konut.values()) {
-	    row += '<div class="card"><img src="' + b[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + b[3] + '</h2><p class="price">' + b[2] + ' TL</p><p>' + b[4] + '</p> <p><button>İncele</button></p></div>';   
+    for (let b of database.konut.keys()) {
+	    row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.konut.get(b)[3] + '</h2><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
-    myTable.innerHTML = row; //out.innerText = t; 
+    myTable.innerHTML = row;
 }
-//makeRows();
 </script>
 
 </body>
