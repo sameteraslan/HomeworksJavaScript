@@ -26,7 +26,7 @@
             <li><a href="#">KİRALIK</a></li>
         </ul>
 	</li>
-        <li><a href="#">ARSA</a>
+        <li><a href="#" onClick="showLinkElements('a')">ARSA</a>
 	<ul>
             <li><a href="#">SATILIK</a></li>
             <li><a href="#">KİRALIK</a></li>
@@ -86,22 +86,22 @@ function readData(file) {
     if(file.includes("konut.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addKonut).then(makeRows);
+          .then(addKonut).then(showKonutElements);
     } 
     else if(file.includes("isyeri.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addIsyeri).then(makeRows);
+          .then(addIsyeri).then(showIsyeriElements);
     }
     else if(file.includes("bina.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addBina).then(makeRows);
+          .then(addBina).then(showBinaElements);
     } 
     else if(file.includes("arsa.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addArsa).then(makeRows);
+          .then(addArsa).then(showArsaElements);
     } 
     else {
 	console.log("File could not find.")
@@ -111,7 +111,6 @@ function parse(line) {
     let b = line.split("\t");
     return b;
 }
-
 function addKonut(txt) {
     let a = txt.split("\n");
     for (let s of a) {
@@ -119,7 +118,6 @@ function addKonut(txt) {
 		database.konut.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
     }
 }
-
 function addIsyeri(txt) {
     let a = txt.split("\n");
     for (let s of a) {
@@ -145,13 +143,65 @@ function addBina(txt) {
     }
 }
 readData("konut.txt");
-function makeRows() {
+readData("arsa.txt");
+readData("bina.txt");
+readData("isyeri.txt");
+function showKonutElements() {
     let row = "";
     for (let b of database.konut.keys()) {
 	    row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.konut.get(b)[3] + '</h2><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
     myTable.innerHTML += row;
 }
+
+function showArsaElements() {
+    let row = "";
+    for (let b of database.arsa.keys()) {
+	    row += '<div id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.arsa.get(b)[3] + '</h2><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+    }
+    myTable.innerHTML += row;
+}
+
+function showBinaElements() {
+    let row = "";
+    for (let b of database.bina.keys()) {
+	    row += '<div id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.bina.get(b)[3] + '</h2><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+    }
+    myTable.innerHTML += row;
+}
+
+function showIsyeriElements() {
+    let row = "";
+    for (let b of database.isyeri.keys()) {
+	    row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+    }
+    myTable.innerHTML += row;
+}
+
+function sorgula(aranacak_metin) {
+    let row = "";
+    for (let b of database.isyeri.keys()) {
+	    console.log("deneme");
+	    if (database.isyeri.get(b).includes(aranacak_metin))
+	    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+    }
+    myTable.innerHTML = row;
+    console.log(myTable.innerHTML);
+}
+
+function showLinkElements(aranacak_metin) {
+    let row = "";
+    for (let b of database.isyeri.keys()) {
+	    if (database.isyeri.get(b).includes(aranacak_metin))
+	    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+    }
+    console.log("aboooo");
+    myTable.innerHTML = row;
+    console.log(myTable.innerHTML);
+
+
+}
+setTimeout(console.log, 3000, database.konut);
 </script>
 
 </body>
