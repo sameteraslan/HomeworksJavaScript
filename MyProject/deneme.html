@@ -88,16 +88,26 @@ function readData(file) {
           .then(r => r.text())
           .then(addKonut).then(makeRows);
     } 
-/*	else if(file.includes("isyeri.txt")) {
+    else if(file.includes("isyeri.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addIsyeri);
-    }*/
-	else {
-		console.log("File could not find.")
-	}
+          .then(addIsyeri).then(makeRows);
+    }
+    else if(file.includes("bina.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addBina).then(makeRows);
+    } 
+    else if(file.includes("arsa.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addArsa).then(makeRows);
+    } 
+    else {
+	console.log("File could not find.")
+    }
 }
-function parseKonut(line) {
+function parse(line) {
     let b = line.split("\t");
     return b;
 }
@@ -105,10 +115,34 @@ function parseKonut(line) {
 function addKonut(txt) {
     let a = txt.split("\n");
     for (let s of a) {
-		let std = parseKonut(s);
+		let std = parse(s);
 		database.konut.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
     }
-    console.log(database.konut);
+}
+
+function addIsyeri(txt) {
+    let a = txt.split("\n");
+    for (let s of a) {
+		let std = parse(s);
+		database.isyeri.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+    }
+}
+	
+	
+function addArsa(txt) {
+    let a = txt.split("\n");
+    for (let s of a) {
+		let std = parse(s);
+		database.arsa.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+    }
+}
+	
+function addBina(txt) {
+    let a = txt.split("\n");
+    for (let s of a) {
+		let std = parse(s);
+		database.bina.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+    }
 }
 readData("konut.txt");
 function makeRows() {
@@ -116,7 +150,7 @@ function makeRows() {
     for (let b of database.konut.keys()) {
 	    row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.konut.get(b)[3] + '</h2><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
-    myTable.innerHTML = row;
+    myTable.innerHTML += row;
 }
 </script>
 
