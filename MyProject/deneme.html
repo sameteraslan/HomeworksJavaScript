@@ -60,7 +60,7 @@ function searchingVisibilityHidden() {
 <body>
 <form >
 	<center style="visibility:hidden;" id="input_search">
-	  	<input  type="text" name="search" placeholder="Search.."><br>
+	  	<input  type="text" name="search" placeholder="Search.." onkeypress="searcher(this)"><br>
 		<fieldset style="width:35%;">
 			<div class="item">
 		    		<input type="checkbox" id="a">
@@ -214,6 +214,20 @@ function showLinkElements(mapName, aranacak_metin) {
 	    }
     }
     myTable.innerHTML = row;
+}
+function searcher(event) {
+	//if (event.key == 13) {
+		let row = myTable.innerHTML;
+		row = row.split("</div>");
+		let new_row = "";
+		for (let i of row) {
+			if (i.match(event)) {
+				new_row += i + "</div>";
+			}	
+		}
+		console.log(new_row);
+		myTable.innerHTML = new_row;
+	//}
 }
 setTimeout(console.log, 3000, database.konut);
 </script>
