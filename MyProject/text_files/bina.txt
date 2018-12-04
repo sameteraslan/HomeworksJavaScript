@@ -1,0 +1,6 @@
+915161	S	images/b001.png	860.000	BÖYLE MEKAN YOK	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Pendik
+915162	S	images/b002.png	980.000	BURSA SURYAPI MARKA AVM' İN YANINDA FIRSAT YATIRIMLIK MÜLK	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kagithane
+915163	S	images/b003.png	683.000	Datça sanayi sitesinde kupon dükkan	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Sultanbeyli
+915164	K	images/b004.png	6.000	BURSA NİLÜFER'DE YÜKSEK CİROLU PRESTİJLİ EMSALSİZ İSTASYON.	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Uskudar
+915165	K	images/b005.png	12.200	ANGERA'dan 6.200 TL NET + KDV KÖŞE BAŞI KURUMSAL MARKET KİRACILI	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kadikoy
+915166	K	images/b006.png	9.500	AYRINTIL BİLGİ VE RANDEVU İÇİN LÜTFEN ARAYINIZ	Detayli bilgi için arayin. 555 555 55 55	İstanbul
