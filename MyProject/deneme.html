@@ -10,32 +10,32 @@
 
 <nav>
   <ul class="nav">
-    <li><a href="#" style="float:initial;">ANASAYFA</a></li>
+    <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/deneme.html" style="float:initial;">ANASAYFA</a></li>
     <li><a href="#">KATEGORİ</a>
       <ul>
-        <li><a href="#">KONUT</a>
+        <li><a href="#" onClick="showLinkElements('konut','')">KONUT</a>
 	<ul>
-            <li><a href="#">SATILIK</a></li>
-            <li><a href="#">KİRALIK</a></li>
-            <li><a href="#">GÜNLÜK KİRALIK</a></li>
+            <li><a href="#" onClick="showLinkElements('konut','S')">SATILIK</a></li>
+            <li><a href="#" onClick="showLinkElements('konut','K')">KİRALIK</a></li>
+            <li><a href="#" onClick="showLinkElements('konut','GK')">GÜNLÜK KİRALIK</a></li>
         </ul>
 	</li>
-        <li><a href="#">İŞYERİ</a>
+        <li><a href="#"  onClick="showLinkElements('isyeri', '')">İŞYERİ</a>
 	<ul>
-            <li><a href="#">SATILIK</a></li>
-            <li><a href="#">KİRALIK</a></li>
+            <li><a href="#"  onClick="showLinkElements('isyeri', 'S')">SATILIK</a></li>
+            <li><a href="#"  onClick="showLinkElements('isyeri', 'K')">KİRALIK</a></li>
         </ul>
 	</li>
-        <li><a href="#" onClick="showLinkElements('a')">ARSA</a>
+        <li><a href="#" onClick="showLinkElements('arsa','')">ARSA</a>
 	<ul>
-            <li><a href="#">SATILIK</a></li>
-            <li><a href="#">KİRALIK</a></li>
+            <li><a href="#" onClick="showLinkElements('arsa','S')">SATILIK</a></li>
+            <li><a href="#" onClick="showLinkElements('arsa','K')">KİRALIK</a></li>
         </ul>
 	</li>
-        <li><a href="#">BİNA</a>
+        <li><a href="#" onClick="showLinkElements('bina','')">BİNA</a>
 	<ul>
-            <li><a href="#">SATILIK</a></li>
-            <li><a href="#">KİRALIK</a></li>
+            <li><a href="#"  onClick="showLinkElements('bina','S')">SATILIK</a></li>
+            <li><a href="#"  onClick="showLinkElements('bina','K')">KİRALIK</a></li>
         </ul>
 	</li>
       </ul>
@@ -185,21 +185,35 @@ function sorgula(aranacak_metin) {
 	    if (database.isyeri.get(b).includes(aranacak_metin))
 	    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
+    console.log("aboooo");
     myTable.innerHTML = row;
     console.log(myTable.innerHTML);
 }
 
-function showLinkElements(aranacak_metin) {
+function showLinkElements(mapName, aranacak_metin) {
     let row = "";
-    for (let b of database.isyeri.keys()) {
-	    if (database.isyeri.get(b).includes(aranacak_metin))
-	    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+    if (mapName == "isyeri") {
+	    for (let b of database.isyeri.keys()) {
+		    if (database.isyeri.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+	    }
+    } else if (mapName == "arsa") {
+	    for (let b of database.arsa.keys()) {
+		    if (database.arsa.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.arsa.get(b)[3] + '</h2><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+	    }
+    } else if (mapName == "bina") {
+	    for (let b of database.bina.keys()) {
+		    if (database.bina.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.bina.get(b)[3] + '</h2><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+	    }
+    } else if (mapName == "konut") {
+	    for (let b of database.konut.keys()) {
+		    if (database.konut.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.konut.get(b)[3] + '</h2><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
+	    }
     }
-    console.log("aboooo");
     myTable.innerHTML = row;
-    console.log(myTable.innerHTML);
-
-
 }
 setTimeout(console.log, 3000, database.konut);
 </script>
