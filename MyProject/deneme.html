@@ -60,14 +60,14 @@ function searchingVisibilityHidden() {
 <body>
 <form >
 	<center style="visibility:hidden;" id="input_search">
-	  	<input  type="text" name="search" placeholder="Search.." onkeypress="searcher(this)"><br>
+	  	<input  type="text" placeholder="Search.." onkeypress="searcher(this.value)"><br>
 		<fieldset style="width:35%;">
 			<div class="item">
-		    		<input type="checkbox" id="a">
+		    		<input type="checkbox" id="a" onClick="checkButtonControl();" checked>
 		    		<label for="a">Satılık</label>&nbsp;&nbsp;
-				<input type="checkbox" id="b">
+				<input type="checkbox" id="b" onClick="checkButtonControl();" checked>
 		    		<label for="b">Kiralık</label>&nbsp;&nbsp;
-		    		<input type="checkbox" id="c">
+		    		<input type="checkbox" id="c" onClick="checkButtonControl();" checked>
 		    		<label for="c">Günlük Kiralık</label>&nbsp;&nbsp;
 			</div>
 		</fieldset>
@@ -80,6 +80,7 @@ function searchingVisibilityHidden() {
 
 <script>
 const database = new Database();
+var elements = "";
 const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
 function readData(file) {
     console.log("readData "+file);
@@ -152,6 +153,7 @@ function showKonutElements() {
 	    row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.konut.get(b)[3] + '</h2><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
     myTable.innerHTML += row;
+    elements += row;
 }
 
 function showArsaElements() {
@@ -160,6 +162,7 @@ function showArsaElements() {
 	    row += '<div id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.arsa.get(b)[3] + '</h2><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
     myTable.innerHTML += row;
+    elements += row;
 }
 
 function showBinaElements() {
@@ -168,6 +171,7 @@ function showBinaElements() {
 	    row += '<div id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.bina.get(b)[3] + '</h2><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
     myTable.innerHTML += row;
+    elements += row;
 }
 
 function showIsyeriElements() {
@@ -176,6 +180,7 @@ function showIsyeriElements() {
 	    row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
     myTable.innerHTML += row;
+    elements += row;
 }
 
 function sorgula(aranacak_metin) {
@@ -185,10 +190,9 @@ function sorgula(aranacak_metin) {
 	    if (database.isyeri.get(b).includes(aranacak_metin))
 	    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:100%"> <h2 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h2><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button>İncele</button></p></div>';   
     }
-    console.log("aboooo");
     myTable.innerHTML = row;
-    console.log(myTable.innerHTML);
-}
+    elements = row;
+}   
 
 function showLinkElements(mapName, aranacak_metin) {
     let row = "";
@@ -214,22 +218,40 @@ function showLinkElements(mapName, aranacak_metin) {
 	    }
     }
     myTable.innerHTML = row;
+    elements = row;
 }
+function checkButtonControl() {	
+	regexGK = new RegExp(/[0-9]+GK"/g);
+	regexK = new RegExp(/[0-9]+K"/g);
+	regexS = new RegExp(/[0-9]+S"/g);
+	let row = elements;
+	row = row.split("</div>");
+	let new_row = "";
+	for (let i of row) {
+		if (c.checked && i.match(regexGK))
+			new_row += i + "</div>";
+		if (b.checked && i.match(regexK))
+			new_row += i + "</div>";
+		if (a.checked && i.match(regexS))
+			new_row += i + "</div>";			
+	}
+
+	myTable.innerHTML = new_row;
+}
+
 function searcher(event) {
-	//if (event.key == 13) {
-		let row = myTable.innerHTML;
-		row = row.split("</div>");
-		let new_row = "";
-		for (let i of row) {
-			if (i.match(event)) {
+	let row = elements;
+	row = row.split("</div>");
+	let new_row = "";
+	for (let i of row) {
+		if (i.toLowerCase().match(event.toLowerCase())) {
 				new_row += i + "</div>";
-			}	
 		}
-		console.log(new_row);
-		myTable.innerHTML = new_row;
-	//}
+	}
+	console.log(new_row);
+	myTable.innerHTML = new_row;
 }
-setTimeout(console.log, 3000, database.konut);
+
 </script>
 
 </body>
