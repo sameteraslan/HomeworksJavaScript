@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>SVG and Canvas </title>
+
+  <style>
+    canvas {
+        background: yellow;
+        font: 10px arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+<center>
+<h2>Using Canvas</h2>
+<canvas id=canvas width=1000 height=500></canvas><br>
+<button type="button" onClick="drawCircle(inputcolor.value)">Draw Circle</button>
+<button type="button" onClick="drawRect(inputcolor.value)">Draw Rect</button>
+<button type="button" onClick="moveRect(inputcolor.value)">Move Rect</button>
+<button type="button" onClick="moveCircle(inputcolor.value)">Move Circle</button>
+<button type="button" onClick="drawTriangle(inputcolor.value)">draw Triangle</button>
+<button type="button" onClick="cutTriangle()">Cut Triangle</button><br>
+<input type="color" id="inputcolor" value="#ff0000">
+</center>
+
+<hr />
+
+<script>
+"use strict";
+function drawCircle(color) {
+    cx.beginPath(); cx.lineWidth = 4;
+    cx.fillStyle = color; cx.strokeStyle = "blue";
+    cx.arc(50, 50, 40, 0, 2*Math.PI);
+    cx.fill(); cx.stroke();
+    cx.fillStyle = "black"; 
+    cx.fillText("arc",44,55);
+
+}
+
+function drawRect(color) {
+    cx.beginPath(); cx.lineWidth = 5;
+    cx.fillStyle = "pink"; cx.strokeStyle = "red";
+    cx.rect(110, 10, 100, 80);
+    cx.fill();
+    cx.fillStyle = color; 
+    cx.fillText("rect",148,55);
+}
+
+function drawTree() {
+  function branch(length, angle, scale) {
+    cx.fillRect(0, 0, 1, length);
+    if (length < 8) return;
+    cx.save();
+    cx.translate(0, length);
+    cx.rotate(-angle);
+    branch(length * scale, angle, scale);
+    cx.rotate(2 * angle);
+    branch(length * scale, angle, scale);
+  
+    cx.restore();
+  }
+    cx.translate(800, 0);
+    branch(45, 0.5, 0.8);
+    cx.restore();
+}
+var x = 110;
+var y = 10;
+var w = 120;
+var h = 80;
+
+function moveRect(color) {
+    cx.beginPath(); cx.lineWidth = 5;
+    cx.fillStyle = "pink"; cx.strokeStyle = "red";
+    cx.clearRect(100, 0, 1000, 500);
+    x += 10;
+    cx.rect(x, y, w, h);
+    cx.fill();
+    cx.fillStyle = color; 
+    cx.fillText("RECT", x + 50, 55);
+}
+
+var xc = 50;
+function moveCircle(color) {
+    cx.beginPath(); cx.lineWidth = 4;
+    cx.fillStyle = color; cx.strokeStyle = "blue";
+    cx.clearRect(0, 0, 100, 500);
+    xc += 10;
+    cx.arc(50, xc, 40, 	0, 2*Math.PI);
+    cx.fill(); cx.stroke();
+    cx.fillStyle = "black"; 
+    cx.fillText("arc", 44,12 + xc);
+}
+
+function drawTriangle(color) {
+  cx.beginPath();
+  cx.moveTo(250, 210);
+  cx.lineTo(210, 270);
+  cx.lineTo(290, 270);
+  cx.fillStyle = color;
+  cx.fill();
+}
+
+function cutTriangle() {
+  cx.clearRect(250, 200, 290, 270);
+  cx.save();
+  //cx.lineTo(210 * Math.PI * 2, 270 * Math.PI * 2);
+  //cx.lineTo(290 * Math.PI * 2, 270 * Math.PI * 2);
+  cx.rotate(0.3);
+  cx.restore();
+}
+    const cx = canvas.getContext("2d");
+    
+</script>
+
+</body>
+</html>
+
