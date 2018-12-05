@@ -58,10 +58,10 @@ function searchingVisibilityHidden() {
 </script>
 </head>
 <body>
-<form >
+<form>
 	<center style="visibility:hidden;" id="input_search">
 	  	<input  type="text" placeholder="Search.." onkeypress="searcher(this.value)"><br>
-		<fieldset style="width:35%;">
+		<fieldset style="width:45%;">
 			<div class="item">
 		    		<input type="checkbox" id="a" onClick="checkButtonControl();" checked>
 		    		<label for="a">Satılık</label>&nbsp;&nbsp;
@@ -69,6 +69,11 @@ function searchingVisibilityHidden() {
 		    		<label for="b">Kiralık</label>&nbsp;&nbsp;
 		    		<input type="checkbox" id="c" onClick="checkButtonControl();" checked>
 		    		<label for="c">Günlük Kiralık</label>&nbsp;&nbsp;
+				<select id="options" onChange="sirala();">
+				  <option value="akilli">Akıllı Sıralama</option>
+				  <option value="azalan">Fiyata Göre Azalan</option>
+				  <option value="artan">Fiyata Göre Artan</option>
+				</select>
 			</div>
 		</fieldset>
 	</center>
@@ -125,8 +130,7 @@ function addIsyeri(txt) {
 		let std = parse(s);
 		database.isyeri.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
     }
-}
-	
+}	
 	
 function addArsa(txt) {
     let a = txt.split("\n");
@@ -252,6 +256,22 @@ function searcher(event) {
 	myTable.innerHTML = new_row;
 }
 
+function sirala() {
+	let siralamalar = document.getElementById("options");
+	let secilen = siralamalar.options[siralamalar.selectedIndex].value;
+	if (secilen == "artan") {
+	
+
+
+	} else if (secilen == "azalan") {
+
+
+
+	} else {
+
+
+	}
+}
 </script>
 
 </body>
