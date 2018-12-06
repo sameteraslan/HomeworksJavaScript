@@ -150,3 +150,12 @@ input[type=text] {
 input[type=text]:focus {
     width: 40%;
 }
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: black;
+   color: white;
+   text-align: center;
+}
