@@ -23,7 +23,7 @@ nav ul {
 }
 .nav a {
   display: block; 
-  background: orange; 
+  background: #f1ac2e; 
   color: white; 
   text-decoration: none;
   padding: 0.8em 1.8em;
@@ -47,6 +47,12 @@ nav ul {
 } 
 .nav > li > a { 
   margin-bottom: 1px;
+}
+
+.nav > li > a:hover { 
+ font-weight:bold;
+ background: #f3a313;
+
 }
 .nav > li:hover { 
   border-bottom-color: orange;
