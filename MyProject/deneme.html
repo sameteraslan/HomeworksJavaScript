@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<link rel="stylesheet" type="text/css" href="site_theme.css">
-<meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" type="text/css" href="site_theme.css">
+    <meta charset="UTF-8"/>
+    <meta name="theme-color" content="white" />
+    <meta name="author" content="Abdulsamet ERASLAN, 2018" />
+    <meta name="description" content="Fatih Sultan Mehmet Vakif University, Computer Engineering" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('sw.js')
+          .then((reg) => { console.log('SW Registered', reg) })
+          .catch(console.log)
+      }
+    </script>
+    <title>Emlakçınız</title>
+    <link rel="icon" href="icon.png">
+    <link rel="manifest" href="manifest.json">
 
 <title>Website Project</title>
 <script src="database.js"></script>
