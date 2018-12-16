@@ -42,7 +42,7 @@ input[type=submit]:hover {
 <h3>İletişim</h3>
 
 <div class="container">
-  <form action="/submitted.html">
+  <form id="contact_form">
 
     <label for="name">Adiniz</label>
     <input type="text" id="name" name="firstname" placeholder="Adınız..">
@@ -60,10 +60,18 @@ input[type=submit]:hover {
     <label for="subject">Konu</label>
     <textarea id="subject" name="subject" placeholder="Buraya iletmek istediğiniz konuyu yazın." style="height:200px"></textarea>
 
-    <input type="submit" value="Gönder">
+    <input type="submit" onClick="sentMessage();" value="Gönder">
 	
   </form>
 </div>
+<script>
+function sentMessage() {
+	document.getElementById("contact_form").innerHTML = '<center><img src="tick.png" class="avatar"></center>';
+	setTimeout(function() {
+  		window.location.href = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/deneme.html";
+	}, 3000);
 
+}
+</script>
 </body>
 </html>
