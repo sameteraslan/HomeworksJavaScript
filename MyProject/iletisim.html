@@ -6,7 +6,20 @@
     <meta name="theme-color" content="white" />
     <meta name="author" content="Abdulsamet ERASLAN, 2018" />
     <meta name="description" content="Fatih Sultan Mehmet Vakif University, Computer Engineering" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBb4F7PPdCuDcdSX8IrmsaK4w4OK4EoWkU",
+	    authDomain: "emlak-28aa0.firebaseapp.com",
+	    databaseURL: "https://emlak-28aa0.firebaseio.com",
+	    projectId: "emlak-28aa0",
+	    storageBucket: "emlak-28aa0.appspot.com",
+	    messagingSenderId: "1086135749692"
+	  };
+	  firebase.initializeApp(config);
+    </script>
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -50,10 +63,10 @@ input[type=submit]:hover {
   <form id="contact_form">
 
     <label for="name">Adiniz</label>
-    <input type="text" id="name" name="firstname" placeholder="Adınız..">
+    <input type="text" id="name" name="firstname" placeholder="Adınız.." required>
 
     <label for="sname">Soyadiniz</label>
-    <input type="text" id="sname" name="lastname" placeholder="Soyadınız..">
+    <input type="text" id="sname" name="lastname" placeholder="Soyadınız.." required>
 
     <label for="country">Ülke</label>
     <select id="country" name="country">
@@ -63,9 +76,9 @@ input[type=submit]:hover {
     </select>
 
     <label for="subject">Konu</label>
-    <textarea id="subject" name="subject" placeholder="Buraya iletmek istediğiniz konuyu yazın." style="height:200px"></textarea>
+    <textarea id="subject" name="subject" required placeholder="Buraya iletmek istediğiniz konuyu yazın." style="height:200px"></textarea>
 
-    <button type="button" id="gonder" onClick="sendMessage();">Gönder</button>
+    <button type="submit" id="gonder" onClick="sendMessage();">Gönder</button>
 	
   </form>
 </div>
@@ -76,6 +89,7 @@ function sendMessage() {
 	let country = document.getElementById("country");
 	let country_name = country.options[country.selectedIndex].value;
 	let topic = document.getElementById("subject").value;
+	if (name.length < 1 || sname.length < 1 || topic < 1) return;
 
 	// Get Current Date
 	// Reference: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
@@ -99,7 +113,7 @@ function sendMessage() {
 	
 
 
-	document.getElementById("contact_form").innerHTML = '<center><img src="tick.png" class="avatar"></center>';
+	document.getElementById("contact_form").innerHTML = '<center><img src="tick.png" style="width:400px;height:400px;"></center>';
 	setTimeout(function() {
   		window.location.href = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/deneme.html";
 	}, 3000);
