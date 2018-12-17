@@ -445,26 +445,20 @@ function sendProductValues() {
 
 
 	//https://developers.google.com/sheets/api/guides/values
-	var values = [
-		  [
-		    12,123,123,123
-		  ],[1,2,3,4]
-		  
-		];
-		var body = {
-		  values: values
-		};
-		gapi.client.sheets.spreadsheets.values.append({
-		   spreadsheetId: '12_vHbLsljo0QmcfXrXBpHhlFJxYgBdb8_IPV_6mGxFs',
-		   range: range,
-		   valueInputOption: valueInputOption,
-		   resource: body
-		}).then((response) => {
-		  var result = response.result;
-		  console.log(`${result.updates.updatedCells} cells appended.`)
+	var body = {
+	  values: values
+	};
+	gapi.client.sheets.spreadsheets.values.append({
+	   spreadsheetId: '12_vHbLsljo0QmcfXrXBpHhlFJxYgBdb8_IPV_6mGxFs',
+	   range: 'A1:A5',
+	   valueInputOption: 'RAW',
+
+	}).then((response) => {
+	  var result = response.result;
+	  console.log(`${result.updates.updatedCells} cells appended.`)
 	});
 
-	setTimeout(function(){
+	setTimeout(function() {
 		document.getElementById('urunEklePenceresi').style.display='none';
 	}, 2000);
 	
