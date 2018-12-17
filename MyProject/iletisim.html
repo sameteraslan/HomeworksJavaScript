@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="theme-color" content="white" />
+    <meta name="author" content="Abdulsamet ERASLAN, 2018" />
+    <meta name="description" content="Fatih Sultan Mehmet Vakif University, Computer Engineering" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -89,6 +94,8 @@ function sentMessage() {
 	    	    "country" : country_name,
 	    	    "topic" : topic,
 	    	    "date" : today};
+	let firebaseRef = firebase.database().ref("ILETISIM");	
+	firebaseRef.push(myObject);
 	
 
 
