@@ -446,7 +446,7 @@ function sendProductValues() {
 
 	//https://developers.google.com/sheets/api/guides/values
 	var body = {
-	  values: values
+	  values: [1,2,3,4]
 	};
 	gapi.client.sheets.spreadsheets.values.append({
 	   spreadsheetId: '12_vHbLsljo0QmcfXrXBpHhlFJxYgBdb8_IPV_6mGxFs',
