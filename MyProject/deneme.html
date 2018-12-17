@@ -110,19 +110,14 @@ function addProductWindow() {
 	document.getElementById('urunEklePenceresi').style.display='block';
 	document.getElementById("cancelProduct").innerHTML = '<button type="button" onclick="document.getElementById("urunEklePenceresi").style.display="none"" class="cancelbtn">İptal Et</button>';
 	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><label for="baslik">Başlık</label><input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br><label for="fiyat">Fiyat</label><input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br> <label>Kategori</label><select id="p_options" onChange="setPSUBoptions();"><option value="konut">Konut</option><option value="isyeri">İşyeri</option><option value="arsa">Arsa</option><option value="bina">Bina</option></select>&nbsp;&nbsp;&nbsp;&nbsp; <label>Alt Kategori</label><select id="p_sub_options"> <option value="NULL"></option></select><br><br><br> <label for="adres">Adres</label><input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br><label for="description">Detaylı Bilgi</label><input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br><label for="img_link">Resim Linki</label><input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br><button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>';
-
 }
-
 var modal = document.getElementById('urunEklePenceresi');
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
-
-
 function searchingVisibility() {
 	var searching = document.getElementById("input_search");
 	searching.style.visibility = "visible";
@@ -131,7 +126,6 @@ function searchingVisibilityHidden() {
 	var searching_input = document.getElementById("input_search");
 	searching_input.style.visibility = "hidden";
 }
-
 </script>
 </head>
 <body>
@@ -191,18 +185,14 @@ function searchingVisibilityHidden() {
 <div class="footer"><p>Created By Samet ERASLAN - 2018</p></div>
 
 <script>
-
 var slideIndex = 1;
 showSlides(slideIndex);
-
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
-
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
-
 function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");
@@ -218,8 +208,6 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 }
-
-
 const database = new Database();
 var elements = "";
 const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
@@ -307,6 +295,7 @@ function showKonutElements() {
     myTable.innerHTML += row;
     elements += row;
 }
+
 function showArsaElements() {
     let row = "";
     for (let b of database.arsa.keys()) {
@@ -409,7 +398,6 @@ function sirala() {
 	} else {
 	}
 }
-
 function setPSUBoptions() {
 	let siralamalar = document.getElementById("p_options");
 	let secilen = siralamalar.options[siralamalar.selectedIndex].value;
@@ -423,7 +411,6 @@ function setPSUBoptions() {
 function sendProductValues() {
 	let tur = document.getElementById("p_options");
 	let secilen_tur = tur.options[tur.selectedIndex].value;
-
 	let alt_tur = document.getElementById("p_sub_options");
 	let secilen_alt_tur = alt_tur.options[alt_tur.selectedIndex].value;
 	let baslik = document.getElementById("header").value;
@@ -431,7 +418,6 @@ function sendProductValues() {
 	let aciklama = document.getElementById("description").value;
 	let img_link = document.getElementById("img_link").value;
 	let adres = document.getElementById("adres").value;
-
 	let id = 0;
 	if (secilen_tur == "konut") {
 		id = maxKonutId + 1;
@@ -446,18 +432,38 @@ function sendProductValues() {
 		id = maxIsyeriId + 1;
 	}
 	let text = id + "\t" + secilen_alt_tur + "\t" + img_link + "\t" + fiyat + "\t" + baslik + "\t" + aciklama + "\t" + adres;
-
 	console.log(text);
 	
 	document.getElementById("cancelProduct").innerHTML = "";
 	document.getElementById("productInfo").innerHTML = '<center><img src="tick.png" class="avatar"></center>';
+
+
+
+	//https://developers.google.com/sheets/api/guides/values
+	var values = [
+		  [
+		    12,123,123,123// Cell values ...
+		  ],
+		  12 // Additional rows ...
+		];
+		var body = {
+		  values: values
+		};
+		gapi.client.sheets.spreadsheets.values.append({
+		   spreadsheetId: 12_vHbLsljo0QmcfXrXBpHhlFJxYgBdb8_IPV_6mGxFs,
+		   range: range,
+		   valueInputOption: valueInputOption,
+		   resource: body
+		}).then((response) => {
+		  var result = response.result;
+		  console.log(`${result.updates.updatedCells} cells appended.`)
+	});
+
 	setTimeout(function(){
 		document.getElementById('urunEklePenceresi').style.display='none';
 	}, 2000);
 	
-
 }
-
 </script>
 
 </body>
