@@ -65,12 +65,12 @@ input[type=submit]:hover {
     <label for="subject">Konu</label>
     <textarea id="subject" name="subject" placeholder="Buraya iletmek istediğiniz konuyu yazın." style="height:200px"></textarea>
 
-    <input type="submit" onClick="sentMessage();" value="Gönder">
+    <button type="button" id="gonder" onClick="sendMessage();">Gönder</button>
 	
   </form>
 </div>
 <script>
-function sentMessage() {
+function sendMessage() {
 	let name = document.getElementById("name").value;
 	let sname = document.getElementById("sname").value;
 	let country = document.getElementById("country");
