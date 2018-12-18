@@ -74,6 +74,7 @@ function check() {
 	document.getElementById("iletisim_bekleyenler").innerHTML = "";
 	readData("admin.txt");
 }
+
 const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
 function readData(file) {
     if(file.includes("admin.txt")) {
@@ -82,15 +83,15 @@ function readData(file) {
           .then(parseAndCheck).then(value => checkResult(value));
     }
 }
+
 var elements = "";
 function checkResult(value) {
 	//if (!value) return;
-	
-	
-	getContactMessages();
-	
-	showContactElements();
+	setTimeout(function() {getContactMessages();}, 10);
+	setTimeout(function() {showContactElements();}, 1000);
+	setTimeout(function() {document.getElementById("loginPage").outerHTML = "";}, 1050);
 }
+
 function parseAndCheck(line) {
     let b = line.split("\n");
     let uname = document.getElementById("uname").value + "";
@@ -99,6 +100,7 @@ function parseAndCheck(line) {
 	return true;
     return false;
 }
+
 var uye_mesajlari = new Map();
 var onaylama_mesajlari = new Map();
 function getContactMessages() {
@@ -114,6 +116,7 @@ function getContactMessages() {
 	  onaylama_mesajlari.set(snap.key, name);
 	});	
 }
+
 function showContactElements() {
 	let row = "";
 	for (let i of uye_mesajlari.values()) {
@@ -125,6 +128,7 @@ function showContactElements() {
 	document.getElementById("iletisim_bekleyenler").innerHTML = row;
 	//document.getElementById("loginPage").outerHTML = "";
 }
+
 function checkMessage(key) {
 	//burada firebaseden silinenecek.
 	document.getElementById(key).style = 'background-color="green"';
@@ -132,6 +136,7 @@ function checkMessage(key) {
 	var firebaseRef = firebase.database().ref("ILETISIM");	
 	//firebaseRef.child(key).set(null);
 }
+
 function checkProducts(id) {
 	document.getElementById(id).style = 'background-color="green"';
 	document.getElementById(id).innerText = "Onaylandı";

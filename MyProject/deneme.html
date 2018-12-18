@@ -272,6 +272,7 @@ function searchingVisibilityHidden() {
 <div class="footer"><p>Created By Samet ERASLAN - 2018</p></div>
 
 <script>
+// Reference: https://www.w3schools.com/w3css/w3css_slideshow.asp
 var slideIndex = 1;
 showSlides(slideIndex);
 function plusSlides(n) {
@@ -299,7 +300,6 @@ const database = new Database();
 var elements = "";
 const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
 function readData(file) {
-    console.log("readData "+file);
     if(file.includes("konut.txt")) {
       fetch(url+file)
           .then(r => r.text())
@@ -321,7 +321,7 @@ function readData(file) {
           .then(addArsa).then(showArsaElements);
     } 
     else {
-	console.log("File could not find.")
+	showFirebaseElements();
     }
 }
 function parse(line) {
@@ -370,6 +370,7 @@ function addBina(txt) {
     }
     database.bina.delete("");
 }
+readData("");
 readData("konut.txt");
 readData("arsa.txt");
 readData("bina.txt");
@@ -380,7 +381,6 @@ let onaylar = firebase.database().ref("ONAYLANANLAR");
 	  let name = snap.val();
 	  checked_products.set(snap.key, name);
 	});
-showFirebaseElements();
 function showFirebaseElements() {
 	for (let b of checked_products.keys()) {
 		if (Number(b) > 900000) { //bina
@@ -392,6 +392,7 @@ function showFirebaseElements() {
 		} else if (Number(b) > 500000) { //konut
 			database.konut.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
 		}
+		checked_products.delete(b);
 	}
 }
 
