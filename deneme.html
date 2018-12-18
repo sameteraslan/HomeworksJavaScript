@@ -161,7 +161,6 @@ function addProductWindow() {
 	document.getElementById("cancelProduct").innerHTML = '<button type="button" onclick="document.getElementById("urunEklePenceresi").style.display="none"" class="cancelbtn">İptal Et</button>';
 	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><label for="baslik" style="color:black;">Başlık</label><input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br><label for="fiyat" style="color:black;">Fiyat</label><input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br> <label style="color:black;">Kategori</label><select id="p_options" onChange="setPSUBoptions();"><option value="konut">Konut</option><option value="isyeri">İşyeri</option><option value="arsa">Arsa</option><option value="bina">Bina</option></select>&nbsp;&nbsp;&nbsp;&nbsp; <label style="color:black;">Alt Kategori</label><select id="p_sub_options"> <option value="NULL"></option></select><br><br><br> <label for="adres" style="color:black;">Adres</label><input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br><label for="description" style="color:black;">Detaylı Bilgi</label><input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br><label for="img_link" style="color:black;">Resim Linki</label><input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br><button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>';
 }
-
 function inspectProduct(id) {
 	let baslik = "";
 	let aciklama = "";
@@ -178,7 +177,6 @@ function inspectProduct(id) {
 		aciklama = database.konut.get(id)[4];
 		fiyat = database.konut.get(id)[2];
 		resim = database.konut.get(id)[1];
-
 	} else if (database.isyeri.has(id)) {
 		baslik = database.isyeri.get(id)[3];
 		aciklama = database.isyeri.get(id)[4];
@@ -192,15 +190,12 @@ function inspectProduct(id) {
 	}
 	document.getElementById('urunEklePenceresi').style.display='block';
 	
-	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><center><img src="' + resim + '" alt="resim yukleniyor..." style = "width:auto;max-width:-moz-available;max-height:500px;"></img></center><br><br><label style="color:black;">' + baslik + '</label><br><br><br><label style="color:black;">Fiyat: ' + fiyat + '</label><br><br><br> <label style="color:black;">Aciklama : ' + aciklama + '</label><button type="button" id="kapat" onClick="setCancelDisplay();">Kapat</button>';
+	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" style="max-width:90%;" id="productInfo"><center><img src="' + resim + '" alt="resim yukleniyor..." style ="max-width: -webkit-fill-available;max-height:-webkit-fill-available;"></img></center><br><br><label style="color:black;">' + baslik + '</label><br><br><br><label style="color:black;">Fiyat: ' + fiyat + '</label><br><br><br> <label style="color:black;">Aciklama : ' + aciklama + '</label><button type="button" id="kapat" onClick="setCancelDisplay();">Kapat</button>';
 	document.getElementById("cancelProduct").innerHTML = "";
-
 }
-
 function setCancelDisplay() {
 	document.getElementById("urunEklePenceresi").style.display="none";
 }
-
 var modal = document.getElementById('urunEklePenceresi');
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -277,6 +272,7 @@ function searchingVisibilityHidden() {
 <div class="footer"><p>Created By Samet ERASLAN - 2018</p></div>
 
 <script>
+// Reference: https://www.w3schools.com/w3css/w3css_slideshow.asp
 var slideIndex = 1;
 showSlides(slideIndex);
 function plusSlides(n) {
@@ -304,29 +300,28 @@ const database = new Database();
 var elements = "";
 const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
 function readData(file) {
-    console.log("readData "+file);
     if(file.includes("konut.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addKonut).then(showKonutElements);
+          .then(addKonut).then(showFirebaseElements).then(showKonutElements);
     } 
     else if(file.includes("isyeri.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addIsyeri).then(showIsyeriElements);
+          .then(addIsyeri).then(showFirebaseElements).then(showIsyeriElements);
     }
     else if(file.includes("bina.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addBina).then(showBinaElements);
+          .then(addBina).then(showFirebaseElements).then(showBinaElements);
     } 
     else if(file.includes("arsa.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addArsa).then(showArsaElements);
+          .then(addArsa).then(showFirebaseElements).then(showArsaElements);
     } 
     else {
-	console.log("File could not find.")
+	showFirebaseElements();
     }
 }
 function parse(line) {
@@ -375,23 +370,44 @@ function addBina(txt) {
     }
     database.bina.delete("");
 }
+var checked_products = new Map();
+readData("");
 readData("konut.txt");
 readData("arsa.txt");
 readData("bina.txt");
 readData("isyeri.txt");
+
+let onaylar = firebase.database().ref("ONAYLANANLAR");
+	onaylar.on('child_added', snap => {
+	  let name = snap.val();
+	  checked_products.set(snap.key, name);
+	});
+function showFirebaseElements() {
+	for (let b of checked_products.keys()) {
+		if (Number(b) > 900000) { //bina
+			database.bina.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
+		} else if (Number(b) > 800000) { //arsa
+			database.arsa.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
+		} else if (Number(b) > 700000) { //isyeri
+			database.isyeri.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
+		} else if (Number(b) > 500000) { //konut
+			database.konut.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
+		}
+	}
+}
+
 function showKonutElements() {
     let row = "";
     for (let b of database.konut.keys()) {
-	    row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + database.konut.get(b)[3] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:100px">' + database.konut.get(b)[5] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
     }
     myTable.innerHTML += row;
     elements += row;
 }
-
 function showArsaElements() {
     let row = "";
     for (let b of database.arsa.keys()) {
-	    row += '<div id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:180px;height:180px;" alt="arsalar"> <h4 style="min-height:200px">' + database.arsa.get(b)[3] + '</h4><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:180px;height:180px;" alt="arsalar"> <h4 style="min-height:100px">' + database.arsa.get(b)[5] + '</h4><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
     }
     myTable.innerHTML += row;
     elements += row;
@@ -399,7 +415,7 @@ function showArsaElements() {
 function showBinaElements() {
     let row = "";
     for (let b of database.bina.keys()) {
-	    row += '<div id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:180px;height:180px;" alt="binalar"> <h4 style="min-height:200px">' + database.bina.get(b)[3] + '</h4><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:180px;height:180px;" alt="binalar"> <h4 style="min-height:100px">' + database.bina.get(b)[5] + '</h4><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
     }
     myTable.innerHTML += row;
     elements += row;
@@ -407,7 +423,7 @@ function showBinaElements() {
 function showIsyeriElements() {
     let row = "";
     for (let b of database.isyeri.keys()) {
-	    row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:100px">' + database.isyeri.get(b)[5] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
     }
     myTable.innerHTML += row;
     elements += row;
@@ -417,7 +433,7 @@ function sorgula(aranacak_metin) {
     for (let b of database.isyeri.keys()) {
 	    console.log("deneme");
 	    if (database.isyeri.get(b).includes(aranacak_metin))
-	    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    	row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:100px">' + database.isyeri.get(b)[5] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
     }
     myTable.innerHTML = row;
     elements = row;
@@ -427,22 +443,22 @@ function showLinkElements(mapName, aranacak_metin) {
     if (mapName == "isyeri") {
 	    for (let b of database.isyeri.keys()) {
 		    if (database.isyeri.get(b).includes(aranacak_metin) || aranacak_metin == "")
-		    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+		    	row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:100px">' + database.isyeri.get(b)[5] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	    }
     } else if (mapName == "arsa") {
 	    for (let b of database.arsa.keys()) {
 		    if (database.arsa.get(b).includes(aranacak_metin) || aranacak_metin == "")
-		    	row += '<div id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:180px;height:180px;" alt="arsalar"> <h4 style="min-height:200px">' + database.arsa.get(b)[3] + '</h4><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+		    	row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:180px;height:180px;" alt="arsalar"> <h4 style="min-height:100px">' + database.arsa.get(b)[5] + '</h4><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	    }
     } else if (mapName == "bina") {
 	    for (let b of database.bina.keys()) {
 		    if (database.bina.get(b).includes(aranacak_metin) || aranacak_metin == "")
-		    	row += '<div id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:180px;height:180px;" alt="binalar"> <h4 style="min-height:200px">' + database.bina.get(b)[3] + '</h4><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+		    	row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:180px;height:180px;" alt="binalar"> <h4 style="min-height:100px">' + database.bina.get(b)[5] + '</h4><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	    }
     } else if (mapName == "konut") {
 	    for (let b of database.konut.keys()) {
 		    if (database.konut.get(b).includes(aranacak_metin) || aranacak_metin == "")
-		    	row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + database.konut.get(b)[3] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button  id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+		    	row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:100px">' + database.konut.get(b)[5] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button  id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	    }
     }
     myTable.innerHTML = row;
@@ -511,7 +527,6 @@ function sendProductValues() {
 	let img_link = document.getElementById("img_link").value;
 	let adres = document.getElementById("adres").value;
 	let id = 0;
-
 	if (secilen_tur == "konut") {
 		id = (maxKonutId++) + 1;
 		
@@ -538,10 +553,8 @@ function sendProductValues() {
 	    	    "aciklama" : aciklama,
 	    	    "adres" : adres,
 	    	    "img_link" : img_link};
-
 	var firebaseRef = firebase.database().ref("ONAY_BEKLEYENLER");	
 	firebaseRef.child(id).set(myObject);
-
 	document.getElementById("productInfo").innerHTML = '<center><img src="tick.png" class="avatar"><h2>BAŞARILI</h2></center>';
 	setTimeout(function() {
 		document.getElementById('urunEklePenceresi').style.display='none';
