@@ -86,7 +86,7 @@ function readData(file) {
 
 var elements = "";
 function checkResult(value) {
-	//if (!value) return;
+	if (!value) return;
 	setTimeout(function() {getContactMessages();}, 10);
 	setTimeout(function() {showContactElements();}, 2000);
 	setTimeout(function() {document.getElementById("loginPage").outerHTML = "";}, 2200);
@@ -107,7 +107,7 @@ function getContactMessages() {
 	var commentsRef = firebase.database().ref("ILETISIM");
 	commentsRef.on('child_added', snap => {
 	  let name = snap.val();
-	  //name["key"] = snap.key;
+	  name["key"] = snap.key;
 	  uye_mesajlari.set(snap.key, name);
 	});
 	let onaylar = firebase.database().ref("ONAY_BEKLEYENLER");
@@ -120,7 +120,7 @@ function getContactMessages() {
 function showContactElements() {
 	let row = "";
 	for (let i of uye_mesajlari.values()) {
-		row += '<div class="scard"><header><h3>' + i["name"] + ' ' + i["sname"] + '</h3><h5>' + i["date"] + '</h5></header><div class="w3-container"><p>' + i["country"] + '</p><p>' + i["phone"] + '</p><hr><p>' + i["topic"] + '</p><br></div><button id="' + i["key"] + '" style="background-color:red;width: -moz-available;" onClick="checkMessage(this.id);">Bekliyor</button></div>&nbsp;&nbsp;&nbsp;&nbsp;';  
+		row += '<div style = "height: 400px;" class="scard"><header><h3>' + i["name"] + ' ' + i["sname"] + '</h3><h5>' + i["date"] + '</h5></header><div class="w3-container"><p>' + i["country"] + '</p><p>' + i["phone"] + '</p><hr><p>' + i["topic"] + '</p><br></div><button id="' + i["key"] + '" style="background-color:red;width: -moz-available;" onClick="checkMessage(this.id);">Bekliyor</button></div>&nbsp;&nbsp;&nbsp;&nbsp;';  
 	}
 	for (let i of onaylama_mesajlari.values()) {
 		row += '<div class="card"><img src="' + i["img_link"]  + '" style="width:180px;height:180px;max-width: -moz-available;max-height: -moz-available;" alt="konutlar"> <h4 style="min-height:200px">' + i["baslik"] + '</h4><p class="price">' + i["fiyat"] + ' TL</p><p>' + i["aciklama"] + '</p> <p><button style="background-color:red;" id="' + i["id"] + '" onClick="checkProducts(this.id);">Onaylanmadı</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
@@ -134,7 +134,7 @@ function checkMessage(key) {
 	document.getElementById(key).style = 'background-color="green"';
 	document.getElementById(key).innerText = "Onaylandı";
 	var firebaseRef = firebase.database().ref("ILETISIM");	
-	//firebaseRef.child(key).set(null);
+	firebaseRef.child(key).set(null);
 }
 
 function checkProducts(id) {
