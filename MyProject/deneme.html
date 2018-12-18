@@ -380,6 +380,7 @@ let onaylar = firebase.database().ref("ONAYLANANLAR");
 	  let name = snap.val();
 	  checked_products.set(snap.key, name);
 	});
+showFirebaseElements();
 function showFirebaseElements() {
 	for (let b of checked_products.keys()) {
 		if (Number(b) > 900000) { //bina
