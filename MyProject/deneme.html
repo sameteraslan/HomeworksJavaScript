@@ -303,22 +303,22 @@ function readData(file) {
     if(file.includes("konut.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addKonut).then(showKonutElements);
+          .then(addKonut).then(showFirebaseElements).then(showKonutElements);
     } 
     else if(file.includes("isyeri.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addIsyeri).then(showIsyeriElements);
+          .then(addIsyeri).then(showFirebaseElements).then(showIsyeriElements);
     }
     else if(file.includes("bina.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addBina).then(showBinaElements);
+          .then(addBina).then(showFirebaseElements).then(showBinaElements);
     } 
     else if(file.includes("arsa.txt")) {
       fetch(url+file)
           .then(r => r.text())
-          .then(addArsa).then(showArsaElements);
+          .then(addArsa).then(showFirebaseElements).then(showArsaElements);
     } 
     else {
 	showFirebaseElements();
