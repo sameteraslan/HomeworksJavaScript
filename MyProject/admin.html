@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="theme-color" content="white" />
+    <meta name="author" content="Abdulsamet ERASLAN, 2018" />
+    <meta name="description" content="Fatih Sultan Mehmet Vakif University, Computer Engineering" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="site_theme.css">
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBb4F7PPdCuDcdSX8IrmsaK4w4OK4EoWkU",
+	    authDomain: "emlak-28aa0.firebaseapp.com",
+	    databaseURL: "https://emlak-28aa0.firebaseio.com",
+	    projectId: "emlak-28aa0",
+	    storageBucket: "emlak-28aa0.appspot.com",
+	    messagingSenderId: "1086135749692"
+	  };
+	  firebase.initializeApp(config);
+    </script>
+
+<style>
+
+.scard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 200px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  height: 400px;
+  padding: 10px;
+  display: inline-block;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    max-width:50%;
+
+}
+
+</style>
+</head>
+<body>
+
+
+<center>
+<h4>Admin Girişi</h4>
+<div class="container" id="loginPage" >
+  <form id="my_form">
+
+    <input type="text" id="uname" placeholder="Kullanıcı Adı" style="width: -moz-available;"><br><br>
+    <input type="password" id="pass" placeholder="Şifre" style="width: -moz-available;"><br><br>
+  </form>
+  <button id="giris" onClick="check();" style="width: -moz-available;">Giriş</button>
+</div>
+
+<div id="iletisim_bekleyenler" style="display:inline;max-width:1000px"></div>
+</center>
+<script>
+
+function check() {
+	readData("admin.txt");
+}
+
+const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
+function readData(file) {
+    if(file.includes("admin.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(parseAndCheck).then(value => checkResult(value));
+    }
+}
+
+var elements = "";
+function checkResult(value) {
+	//if (!value) return;
+	
+	
+	getContactMessages();
+	
+	showContactElements();
+
+}
+
+function parseAndCheck(line) {
+    let b = line.split("\n");
+    let uname = document.getElementById("uname").value + "";
+    let pass = document.getElementById("pass").value + "";
+    if (b[0].localeCompare(uname) == 0 && b[1].localeCompare(pass) == 0)
+	return true;
+    return false;
+}
+
+var uye_mesajlari = new Set();
+var onaylama_mesajlari = new Set();
+function getContactMessages() {
+	var commentsRef = firebase.database().ref("ILETISIM");
+	commentsRef.on('child_added', snap => {
+	  let name = snap.val();
+	  name["key"] = snap.key;
+	  uye_mesajlari.add(name);
+	});
+
+	let onaylar = firebase.database().ref("ONAY_BEKLEYENLER");
+	onaylar.on('child_added', snap => {
+	  let name = snap.val();
+	  onaylama_mesajlari.add(name);
+	});	
+}
+
+function showContactElements() {
+	let row = "";
+	for (let i of uye_mesajlari) {
+
+		row += '<div class="scard"><header><h3>' + i["name"] + ' ' + i["sname"] + '</h3><h5>' + i["date"] + '</h5></header><div class="w3-container"><p>' + i["country"] + '</p><p>' + i["phone"] + '</p><hr><p>' + i["topic"] + '</p><br></div><button id="' + i["key"] + '" style="background-color:red;width: -moz-available;" onClick="checkMessage(this.id);">Bekliyor</button></div>&nbsp;&nbsp;&nbsp;&nbsp;';  
+	}
+
+	for (let i of onaylama_mesajlari) {
+		row += '<div class="card"><img src="' + i["img_link"]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + i["baslik"] + '</h4><p class="price">' + i["fiyat"] + ' TL</p><p>' + i["aciklama"] + '</p> <p><button style="background-color:red;" id="' + i["id"] + '" onClick="checkProducts(this.id);">Onaylanmadı</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	}
+	document.getElementById("iletisim_bekleyenler").innerHTML = row;
+	//document.getElementById("loginPage").outerHTML = "";
+
+}
+
+function checkMessage(key) {
+	//burada firebaseden silinenecek.
+	document.getElementById(key).style = 'background-color="green"';
+	document.getElementById(key).innerText = "Onaylandı";
+	var firebaseRef = firebase.database().ref("ILETISIM");	
+	//firebaseRef.child(key).set(null);
+}
+
+function checkProducts(id) {
+	document.getElementById(id).style = 'background-color="green"';
+	document.getElementById(id).innerText = "Onaylandı";
+	var firebaseRef = firebase.database().ref("ONAY_BEKLEYENLER");	
+	//firebaseRef.child(id).set(null);
+
+}
+</script>
+</body>
+</html>
