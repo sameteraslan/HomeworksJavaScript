@@ -36,58 +36,93 @@
 <title>Emlakçınız</title>
 <script src="database.js"></script>
 
-<nav>
-  <ul class="nav">
-    <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/deneme.html" style="float:initial;">Anasayfa</a></li>
-    <li><a href="#">Kategori</a>
-      <ul>
-        <li><a href="#" onClick="showLinkElements('konut','')">Konut</a>
-	<ul>
-            <li><a href="#" onClick="showLinkElements('konut','S')">Satılık</a></li>
-            <li><a href="#" onClick="showLinkElements('konut','K')">Kiralık</a></li>
-            <li><a href="#" onClick="showLinkElements('konut','GK')">Günlük Kiralık</a></li>
-        </ul>
-	</li>
-        <li><a href="#"  onClick="showLinkElements('isyeri', '')">İşyeri</a>
-	<ul>
-            <li><a href="#"  onClick="showLinkElements('isyeri', 'S')">Satılık</a></li>
-            <li><a href="#"  onClick="showLinkElements('isyeri', 'K')">Kiralık</a></li>
-        </ul>
-	</li>
-        <li><a href="#" onClick="showLinkElements('arsa','')">Arsa</a>
-	<ul>
-            <li><a href="#" onClick="showLinkElements('arsa','S')">Satılık</a></li>
-            <li><a href="#" onClick="showLinkElements('arsa','K')">Kiralık</a></li>
-        </ul>
-	</li>
-        <li><a href="#" onClick="showLinkElements('bina','')">Bina</a>
-	<ul>
-            <li><a href="#"  onClick="showLinkElements('bina','S')">Satılık</a></li>
-            <li><a href="#"  onClick="showLinkElements('bina','K')">Kiralık</a></li>
-        </ul>
-	</li>
-      </ul>
-    </li>
-    <li><a href="#" id="button_search" onClick="searchingVisibility()">Arama</a></li>
-    <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/yardim.html">Yardım</a></li>
-    <li><a href="#" onclick="addProductWindow();">Ürün Ekle</a></li>
-    <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/iletisim.html">İletişim</a></li>
-  </ul>
-</nav><br>
+</head>
+<body>
+        <nav>
 
+        <label for="drop" class="toggle">Menu</label>
+        <input type="checkbox" id="drop" />
+            <ul class="menu">
+                <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/deneme.html">Anasayfa</a></li>
+              
+                <li>
+
+                <!-- First Tier Drop Down -->
+                <label for="drop-2" class="toggle">Kategori</label>
+                <a href="#">Kategori</a>
+                <input type="checkbox" id="drop-2"/>
+                <ul>
+                    <li>
+                       
+                 
+                    <label for="drop-3" class="toggle">Konutlar</label>
+                    <a href="#" onClick="showLinkElements('konut','')">Konutlar</a>         
+                    <input type="checkbox" id="drop-3"/>
+
+                    <ul>
+                        <li><a href="#" onClick="showLinkElements('konut','S')">Satılık</a></li>
+                        <li><a href="#" onClick="showLinkElements('konut','K')">Kiralık</a></li>
+                        <li><a href="#" onClick="showLinkElements('konut','GK')">Günlük Kiralık</a></li>
+                    </ul>
+                    </li>
+                    <li>
+                       
+               
+                    <label for="drop-3" class="toggle">Arsalar</label>
+                    <a href="#" onClick="showLinkElements('arsa','')">Arsalar</a>         
+                    <input type="checkbox" id="drop-3"/>
+
+                    <ul>
+                        <li><a href="#" onClick="showLinkElements('arsa','S')">Satılık</a></li>
+                        <li><a href="#" onClick="showLinkElements('arsa','K')">Kiralık</a></li>
+                    </ul>
+                    </li>
+                    <li>
+                       
+                     
+                    <label for="drop-3" class="toggle">Binalar</label>
+                    <a href="#" onClick="showLinkElements('bina','')">Binalar</a>         
+                    <input type="checkbox" id="drop-3"/>
+
+                    <ul>
+                        <li><a href="#" onClick="showLinkElements('bina','S')">Satılık</a></li>
+                        <li><a href="#" onClick="showLinkElements('bina','K')">Kiralık</a></li>
+                    </ul>
+                    </li>
+                    <li>
+                       
+                        
+                    <label for="drop-3" class="toggle">İşyerleri</label>
+                    <a href="#" onClick="showLinkElements('isyeri', '')">İşyerleri</a>         
+                    <input type="checkbox" id="drop-3"/>
+
+                    <ul>
+                        <li><a href="#" onClick="showLinkElements('isyeri', 'S')">Satılık</a></li>
+                        <li><a href="#" onClick="showLinkElements('isyeri', 'K')">Kiralık</a></li>
+                    </ul>
+                    </li>
+                </ul>
+
+
+                </li>
+                <li><a href="#" id="button_search" onClick="searchingVisibility()">Arama</a></li>
+                <li><a href="#" onclick="addProductWindow();">Ürün Ekle</a></li>
+                <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/iletisim.html">İletişim</a></li>
+            </ul>
+        </nav>
 <div id="urunEklePenceresi" class="modal">
   
   <form class="modal-content animate" style="max-width:60%;">
  
 
     <div class="container" id="productInfo">
-      <label for="baslik">Başlık</label>
+      <label for="baslik" style="color:black;">Başlık</label>
       <input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br>
 
-      <label for="fiyat">Fiyat</label>
+      <label for="fiyat" style="color:black;">Fiyat</label>
       <input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br>
 
-      <label>Kategori</label>
+      <label style="color:black;">Kategori</label>
       <select id="p_options" onChange="setPSUBoptions();">
 	  <option value="konut">Konut</option>
 	  <option value="isyeri">İşyeri</option>
@@ -95,18 +130,18 @@
 	  <option value="bina">Bina</option>
       </select>&nbsp;&nbsp;&nbsp;&nbsp;
 
-      <label>Alt Kategori</label>
+      <label style="color:black;">Alt Kategori</label>
       <select id="p_sub_options">
 	  <option value="NULL"></option>
       </select><br><br><br>
 
-      <label for="adres">Adres</label>
+      <label for="adres" style="color:black;">Adres</label>
       <input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br>
 
-      <label for="description">Detaylı Bilgi</label>
+      <label for="description" style="color:black;">Detaylı Bilgi</label>
       <input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br>
 
-      <label for="img_link">Resim Linki</label>
+      <label for="img_link" style="color:black;">Resim Linki</label>
       <input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br>
         
       <button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>
@@ -124,7 +159,7 @@
 function addProductWindow() {
 	document.getElementById('urunEklePenceresi').style.display='block';
 	document.getElementById("cancelProduct").innerHTML = '<button type="button" onclick="document.getElementById("urunEklePenceresi").style.display="none"" class="cancelbtn">İptal Et</button>';
-	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><label for="baslik">Başlık</label><input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br><label for="fiyat">Fiyat</label><input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br> <label>Kategori</label><select id="p_options" onChange="setPSUBoptions();"><option value="konut">Konut</option><option value="isyeri">İşyeri</option><option value="arsa">Arsa</option><option value="bina">Bina</option></select>&nbsp;&nbsp;&nbsp;&nbsp; <label>Alt Kategori</label><select id="p_sub_options"> <option value="NULL"></option></select><br><br><br> <label for="adres">Adres</label><input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br><label for="description">Detaylı Bilgi</label><input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br><label for="img_link">Resim Linki</label><input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br><button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>';
+	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><label for="baslik" style="color:black;">Başlık</label><input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br><label for="fiyat" style="color:black;">Fiyat</label><input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br> <label style="color:black;">Kategori</label><select id="p_options" onChange="setPSUBoptions();"><option value="konut">Konut</option><option value="isyeri">İşyeri</option><option value="arsa">Arsa</option><option value="bina">Bina</option></select>&nbsp;&nbsp;&nbsp;&nbsp; <label style="color:black;">Alt Kategori</label><select id="p_sub_options"> <option value="NULL"></option></select><br><br><br> <label for="adres" style="color:black;">Adres</label><input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br><label for="description" style="color:black;">Detaylı Bilgi</label><input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br><label for="img_link" style="color:black;">Resim Linki</label><input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br><button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>';
 }
 
 function inspectProduct(id) {
@@ -157,7 +192,7 @@ function inspectProduct(id) {
 	}
 	document.getElementById('urunEklePenceresi').style.display='block';
 	
-	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><center><img src="' + resim + '" alt="resim yukleniyor..." style = "witdh:400px;height:500px;"></img></center><br><br><label>' + baslik + '</label><br><br><br><label>Fiyat: ' + fiyat + '</label><br><br><br> <label>Aciklama : ' + aciklama + '</label><button type="button" id="kapat" onClick="setCancelDisplay();">Kapat</button>';
+	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><center><img src="' + resim + '" alt="resim yukleniyor..." style = "width:auto;max-width:-moz-available;max-height:500px;"></img></center><br><br><label style="color:black;">' + baslik + '</label><br><br><br><label style="color:black;">Fiyat: ' + fiyat + '</label><br><br><br> <label style="color:black;">Aciklama : ' + aciklama + '</label><button type="button" id="kapat" onClick="setCancelDisplay();">Kapat</button>';
 	document.getElementById("cancelProduct").innerHTML = "";
 
 }
@@ -182,8 +217,10 @@ function searchingVisibilityHidden() {
 	searching_input.style.visibility = "hidden";
 }
 </script>
-</head>
-<body>
+
+
+
+
 <div>
 	<center style="visibility:hidden;" id="input_search">
 	  	<input  type="text" class="deneme" placeholder="Search.." onkeypress="searcher(this.value)"><br>
@@ -205,18 +242,18 @@ function searchingVisibilityHidden() {
 	</center>
 </div><br>
 
-<div class="slideshow-container">
+<div class="slideshow-container" style="display:block;">
 
 <div class="mySlides fade">
-  <img src="img_1.jpg" style="width:100%">
+  <img src="img_1.jpg" style="width:100%" alt="resim yukleniyor..">
 </div>
 
 <div class="mySlides fade">
-  <img src="img_2.jpg" style="width:100%">
+  <img src="img_2.jpg" style="width:100%" alt="resim yukleniyor..">
 </div>
 
 <div class="mySlides fade">
-  <img src="img_3.jpg" style="width:100%">
+  <img src="img_3.jpg" style="width:100%" alt="resim yukleniyor..">
 </div>
 
 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -405,7 +442,7 @@ function showLinkElements(mapName, aranacak_metin) {
     } else if (mapName == "konut") {
 	    for (let b of database.konut.keys()) {
 		    if (database.konut.get(b).includes(aranacak_metin) || aranacak_metin == "")
-		    	row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + database.konut.get(b)[3] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button>İncele</button id="' + b + '" onClick="inspectProduct(this.id)"></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+		    	row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + database.konut.get(b)[3] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button  id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	    }
     }
     myTable.innerHTML = row;
