@@ -1,0 +1,134 @@
+<!–– Reference: https://www.w3schools.com/howto/howto_css_contact_form.asp ––>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="theme-color" content="white" />
+    <meta name="author" content="Abdulsamet ERASLAN, 2018" />
+    <meta name="description" content="Fatih Sultan Mehmet Vakif University, Computer Engineering" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBb4F7PPdCuDcdSX8IrmsaK4w4OK4EoWkU",
+	    authDomain: "emlak-28aa0.firebaseapp.com",
+	    databaseURL: "https://emlak-28aa0.firebaseio.com",
+	    projectId: "emlak-28aa0",
+	    storageBucket: "emlak-28aa0.appspot.com",
+	    messagingSenderId: "1086135749692"
+	  };
+	  firebase.initializeApp(config);
+    </script>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<h3>İletişim</h3>
+
+<div class="container">
+  <form id="contact_form">
+
+    <label for="name">Adiniz</label>
+    <input type="text" id="name" name="firstname" placeholder="Adınız" required>
+
+    <label for="sname">Soyadiniz</label>
+    <input type="text" id="sname" name="lastname" placeholder="Soyadınız" required>
+
+    <label for="phone">Telefon Numaranız</label>
+    <input type="text" id="phone" name="phone" placeholder="555 555 55 55" required>
+
+    <label for="country">Ülke</label>
+    <select id="country" name="country">
+      <option value="turkiye">Türkiye</option>
+      <option value="rusya">Rusya</option>
+      <option value="abd">ABD</option>
+    </select>
+
+    <label for="subject">Konu</label>
+    <textarea id="subject" name="subject" required placeholder="Buraya iletmek istediğiniz konuyu yazın." style="height:200px"></textarea>
+
+    <button type="submit" id="gonder" onClick="sendMessage();">Gönder</button>
+	
+  </form>
+</div>
+<script>
+function sendMessage() {
+	let name = document.getElementById("name").value;
+	let sname = document.getElementById("sname").value;
+	let phone = document.getElementById("phone").value;
+	let country = document.getElementById("country");
+	let country_name = country.options[country.selectedIndex].value;
+	let topic = document.getElementById("subject").value;
+	if (name.length < 1 || sname.length < 1 || topic < 1 || phone < 10) return;
+
+	// Get Current Date
+	// Reference: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+	let today = new Date();
+	let dd = today.getDate();
+	let mm = today.getMonth() + 1; // January is 0, so we should add (+1)!
+	let yyyy = today.getFullYear();
+	let hours = today.getHours();
+	let mins = today.getMinutes();
+	let seconds = today.getSeconds();
+	if(dd < 10)
+	    dd = '0' + dd
+	if(mm < 10)
+	    mm = '0' + mm
+	today = mm + '/' + dd + '/' + yyyy + '/' + hours + ':' + mins + ':' + seconds;
+
+	let myObject = {"name" : name, 
+	    	    "sname" : sname,
+	    	    "country" : country_name,
+		    "phone" : phone,
+	    	    "topic" : topic,
+	    	    "date" : today};
+	let firebaseRef = firebase.database().ref("ILETISIM");	
+	firebaseRef.push(myObject);
+	
+
+
+	document.getElementById("contact_form").innerHTML = '<center><img src="tick.png" style="width:400px;height:400px;"></center>';
+	setTimeout(function() {
+  		window.location.href = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/deneme.html";
+	}, 3000);
+
+}
+</script>
+</body>
+</html>
