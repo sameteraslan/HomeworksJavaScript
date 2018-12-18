@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="theme-color" content="white" />
+    <meta name="author" content="Abdulsamet ERASLAN, 2018" />
+    <meta name="description" content="Fatih Sultan Mehmet Vakif University, Computer Engineering" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('sw.js')
+          .then((reg) => { console.log('SW Registered', reg) })
+          .catch(console.log)
+      }
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBb4F7PPdCuDcdSX8IrmsaK4w4OK4EoWkU",
+	    authDomain: "emlak-28aa0.firebaseapp.com",
+	    databaseURL: "https://emlak-28aa0.firebaseio.com",
+	    projectId: "emlak-28aa0",
+	    storageBucket: "emlak-28aa0.appspot.com",
+	    messagingSenderId: "1086135749692"
+	  };
+	  firebase.initializeApp(config);
+    </script>
+    <title>Emlakçınız</title>
+    <link rel="icon" href="icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" type="text/css" href="site_theme.css">
+
+
+<title>Emlakçınız</title>
+<script src="database.js"></script>
+
+<nav>
+  <ul class="nav">
+    <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/deneme.html" style="float:initial;">Anasayfa</a></li>
+    <li><a href="#">Kategori</a>
+      <ul>
+        <li><a href="#" onClick="showLinkElements('konut','')">Konut</a>
+	<ul>
+            <li><a href="#" onClick="showLinkElements('konut','S')">Satılık</a></li>
+            <li><a href="#" onClick="showLinkElements('konut','K')">Kiralık</a></li>
+            <li><a href="#" onClick="showLinkElements('konut','GK')">Günlük Kiralık</a></li>
+        </ul>
+	</li>
+        <li><a href="#"  onClick="showLinkElements('isyeri', '')">İşyeri</a>
+	<ul>
+            <li><a href="#"  onClick="showLinkElements('isyeri', 'S')">Satılık</a></li>
+            <li><a href="#"  onClick="showLinkElements('isyeri', 'K')">Kiralık</a></li>
+        </ul>
+	</li>
+        <li><a href="#" onClick="showLinkElements('arsa','')">Arsa</a>
+	<ul>
+            <li><a href="#" onClick="showLinkElements('arsa','S')">Satılık</a></li>
+            <li><a href="#" onClick="showLinkElements('arsa','K')">Kiralık</a></li>
+        </ul>
+	</li>
+        <li><a href="#" onClick="showLinkElements('bina','')">Bina</a>
+	<ul>
+            <li><a href="#"  onClick="showLinkElements('bina','S')">Satılık</a></li>
+            <li><a href="#"  onClick="showLinkElements('bina','K')">Kiralık</a></li>
+        </ul>
+	</li>
+      </ul>
+    </li>
+    <li><a href="#" id="button_search" onClick="searchingVisibility()">Arama</a></li>
+    <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/yardim.html">Yardım</a></li>
+    <li><a href="#" onclick="addProductWindow();">Ürün Ekle</a></li>
+    <li><a href="https://sameteraslan.github.io/HomeworksJavaScript/MyProject/iletisim.html">İletişim</a></li>
+  </ul>
+</nav><br>
+
+<div id="urunEklePenceresi" class="modal">
+  
+  <form class="modal-content animate" style="max-width:60%;">
+ 
+
+    <div class="container" id="productInfo">
+      <label for="baslik">Başlık</label>
+      <input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br>
+
+      <label for="fiyat">Fiyat</label>
+      <input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br>
+
+      <label>Kategori</label>
+      <select id="p_options" onChange="setPSUBoptions();">
+	  <option value="konut">Konut</option>
+	  <option value="isyeri">İşyeri</option>
+	  <option value="arsa">Arsa</option>
+	  <option value="bina">Bina</option>
+      </select>&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <label>Alt Kategori</label>
+      <select id="p_sub_options">
+	  <option value="NULL"></option>
+      </select><br><br><br>
+
+      <label for="adres">Adres</label>
+      <input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br>
+
+      <label for="description">Detaylı Bilgi</label>
+      <input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br>
+
+      <label for="img_link">Resim Linki</label>
+      <input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br>
+        
+      <button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1" id="cancelProduct">
+      <button type="button" onclick="document.getElementById('urunEklePenceresi').style.display='none'" class="cancelbtn">İptal Et</button>
+    </div>
+  </form>
+</div>
+
+
+
+<script>
+function addProductWindow() {
+	document.getElementById('urunEklePenceresi').style.display='block';
+	document.getElementById("cancelProduct").innerHTML = '<button type="button" onclick="document.getElementById("urunEklePenceresi").style.display="none"" class="cancelbtn">İptal Et</button>';
+	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><label for="baslik">Başlık</label><input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br><label for="fiyat">Fiyat</label><input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br> <label>Kategori</label><select id="p_options" onChange="setPSUBoptions();"><option value="konut">Konut</option><option value="isyeri">İşyeri</option><option value="arsa">Arsa</option><option value="bina">Bina</option></select>&nbsp;&nbsp;&nbsp;&nbsp; <label>Alt Kategori</label><select id="p_sub_options"> <option value="NULL"></option></select><br><br><br> <label for="adres">Adres</label><input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br><label for="description">Detaylı Bilgi</label><input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br><label for="img_link">Resim Linki</label><input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br><button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>';
+}
+
+function inspectProduct(id) {
+	let baslik = "";
+	let aciklama = "";
+	let fiyat = 0;
+	let resim = "";
+	
+	if (database.arsa.has(id)) {
+		baslik = database.arsa.get(id)[3];
+		aciklama = database.arsa.get(id)[4];
+		fiyat = database.arsa.get(id)[2];
+		resim = database.arsa.get(id)[1];
+	} else if (database.konut.has(id)) {
+		baslik = database.konut.get(id)[3];
+		aciklama = database.konut.get(id)[4];
+		fiyat = database.konut.get(id)[2];
+		resim = database.konut.get(id)[1];
+
+	} else if (database.isyeri.has(id)) {
+		baslik = database.isyeri.get(id)[3];
+		aciklama = database.isyeri.get(id)[4];
+		fiyat = database.isyeri.get(id)[2];
+		resim = database.isyeri.get(id)[1];
+	} else if (database.bina.has(id)) {
+		baslik = database.bina.get(id)[3];
+		aciklama = database.bina.get(id)[4];
+		fiyat = database.bina.get(id)[2];
+		resim = database.bina.get(id)[1];
+	}
+	document.getElementById('urunEklePenceresi').style.display='block';
+	
+	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><img src="' + resim + '" alt="resim yukleniyor..." style = "witdh:400px;height:500px;"></img><label>' + baslik + '</label><br><br><br><label>Fiyat: ' + fiyat + '</label><br><br><br> <label>Aciklama : ' + aciklama + '</label><button type="button" id="kapat" onClick="document.getElementById("urunEklePenceresi").style.display="none"">Kapat</button>';
+
+}
+
+
+var modal = document.getElementById('urunEklePenceresi');
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function searchingVisibility() {
+	var searching = document.getElementById("input_search");
+	searching.style.visibility = "visible";
+}
+function searchingVisibilityHidden() {
+	var searching_input = document.getElementById("input_search");
+	searching_input.style.visibility = "hidden";
+}
+</script>
+</head>
+<body>
+<div>
+	<center style="visibility:hidden;" id="input_search">
+	  	<input  type="text" class="deneme" placeholder="Search.." onkeypress="searcher(this.value)"><br>
+		<fieldset style="width:45%;">
+			<div class="item">
+		    		<input type="checkbox" id="a" onClick="checkButtonControl();" checked>
+		    		<label for="a">Satılık</label>&nbsp;&nbsp;
+				<input type="checkbox" id="b" onClick="checkButtonControl();" checked>
+		    		<label for="b">Kiralık</label>&nbsp;&nbsp;
+		    		<input type="checkbox" id="c" onClick="checkButtonControl();" checked>
+		    		<label for="c">Günlük Kiralık</label>&nbsp;&nbsp;
+				<select id="options" onChange="sirala();">
+				  <option value="akilli">Akıllı Sıralama</option>
+				  <option value="azalan">Fiyata Göre Azalan</option>
+				  <option value="artan">Fiyata Göre Artan</option>
+				</select>
+			</div>
+		</fieldset>
+	</center>
+</div><br>
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <img src="img_1.jpg" style="width:100%">
+</div>
+
+<div class="mySlides fade">
+  <img src="img_2.jpg" style="width:100%">
+</div>
+
+<div class="mySlides fade">
+  <img src="img_3.jpg" style="width:100%">
+</div>
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+
+<center>
+<div id="myTable" style="display:inline;max-width:1000px">
+</div>
+</center>
+	
+<div class="footer"><p>Created By Samet ERASLAN - 2018</p></div>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+const database = new Database();
+var elements = "";
+const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
+function readData(file) {
+    console.log("readData "+file);
+    if(file.includes("konut.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addKonut).then(showKonutElements);
+    } 
+    else if(file.includes("isyeri.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addIsyeri).then(showIsyeriElements);
+    }
+    else if(file.includes("bina.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addBina).then(showBinaElements);
+    } 
+    else if(file.includes("arsa.txt")) {
+      fetch(url+file)
+          .then(r => r.text())
+          .then(addArsa).then(showArsaElements);
+    } 
+    else {
+	console.log("File could not find.")
+    }
+}
+function parse(line) {
+    let b = line.split("\t");
+    return b;
+}
+function addKonut(txt) {
+    let a = txt.split("\n");
+    for (let s of a) {
+		let std = parse(s);
+		database.konut.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+		if (maxKonutId < Number(std[0]))
+			maxKonutId = Number(std[0]);
+    }
+    database.konut.delete("");
+}
+function addIsyeri(txt) {
+    let a = txt.split("\n");
+    for (let s of a) {
+		let std = parse(s);
+		database.isyeri.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+		if (maxIsyeriId < Number(std[0]))
+			maxIsyeriId = Number(std[0]);
+    }
+    database.isyeri.delete("");
+}	
+	
+function addArsa(txt) {
+    let a = txt.split("\n");
+    for (let s of a) {
+		let std = parse(s);
+		database.arsa.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+		if (maxArsaId < Number(std[0]))
+			maxArsaId = Number(std[0]);
+    }
+    database.arsa.delete("");
+}
+	
+function addBina(txt) {
+    let a = txt.split("\n");
+    for (let s of a) {
+		let std = parse(s);
+		database.bina.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+		if (maxBinaId < Number(std[0]))
+			maxBinaId = Number(std[0]);
+    }
+    database.bina.delete("");
+}
+readData("konut.txt");
+readData("arsa.txt");
+readData("bina.txt");
+readData("isyeri.txt");
+function showKonutElements() {
+    let row = "";
+    for (let b of database.konut.keys()) {
+	    row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + database.konut.get(b)[3] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+    }
+    myTable.innerHTML += row;
+    elements += row;
+}
+
+function showArsaElements() {
+    let row = "";
+    for (let b of database.arsa.keys()) {
+	    row += '<div id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:180px;height:180px;" alt="arsalar"> <h4 style="min-height:200px">' + database.arsa.get(b)[3] + '</h4><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+    }
+    myTable.innerHTML += row;
+    elements += row;
+}
+function showBinaElements() {
+    let row = "";
+    for (let b of database.bina.keys()) {
+	    row += '<div id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:180px;height:180px;" alt="binalar"> <h4 style="min-height:200px">' + database.bina.get(b)[3] + '</h4><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+    }
+    myTable.innerHTML += row;
+    elements += row;
+}
+function showIsyeriElements() {
+    let row = "";
+    for (let b of database.isyeri.keys()) {
+	    row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+    }
+    myTable.innerHTML += row;
+    elements += row;
+}
+function sorgula(aranacak_metin) {
+    let row = "";
+    for (let b of database.isyeri.keys()) {
+	    console.log("deneme");
+	    if (database.isyeri.get(b).includes(aranacak_metin))
+	    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+    }
+    myTable.innerHTML = row;
+    elements = row;
+}   
+function showLinkElements(mapName, aranacak_metin) {
+    let row = "";
+    if (mapName == "isyeri") {
+	    for (let b of database.isyeri.keys()) {
+		    if (database.isyeri.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:200px">' + database.isyeri.get(b)[3] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p>' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    }
+    } else if (mapName == "arsa") {
+	    for (let b of database.arsa.keys()) {
+		    if (database.arsa.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.arsa.get(b)[0] + '" class="card"><img src="' + database.arsa.get(b)[1]  + '" style="width:180px;height:180px;" alt="arsalar"> <h4 style="min-height:200px">' + database.arsa.get(b)[3] + '</h4><p class="price">' + database.arsa.get(b)[2] + ' TL</p><p>' + database.arsa.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    }
+    } else if (mapName == "bina") {
+	    for (let b of database.bina.keys()) {
+		    if (database.bina.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.bina.get(b)[0] + '" class="card"><img src="' + database.bina.get(b)[1]  + '" style="width:180px;height:180px;" alt="binalar"> <h4 style="min-height:200px">' + database.bina.get(b)[3] + '</h4><p class="price">' + database.bina.get(b)[2] + ' TL</p><p>' + database.bina.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    }
+    } else if (mapName == "konut") {
+	    for (let b of database.konut.keys()) {
+		    if (database.konut.get(b).includes(aranacak_metin) || aranacak_metin == "")
+		    	row += '<div id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + database.konut.get(b)[3] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p>' + database.konut.get(b)[4] + '</p> <p><button>İncele</button id="' + b + '" onClick="inspectProduct(this.id)"></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+	    }
+    }
+    myTable.innerHTML = row;
+    elements = row;
+}
+var maxKonutId = -1;
+var maxBinaId = -1;
+var maxIsyeriId = -1;
+var maxArsaId = -1;
+function checkButtonControl() {	
+	regexGK = new RegExp(/[0-9]+GK"/g);
+	regexK = new RegExp(/[0-9]+K"/g);
+	regexS = new RegExp(/[0-9]+S"/g);
+	let row = elements;
+	row = row.split("</div>");
+	let new_row = "";
+	for (let i of row) {
+		if (c.checked && i.match(regexGK))
+			new_row += i + "</div>";
+		if (b.checked && i.match(regexK))
+			new_row += i + "</div>";
+		if (a.checked && i.match(regexS))
+			new_row += i + "</div>";			
+	}
+	myTable.innerHTML = new_row;
+}
+function searcher(event) {
+	let row = elements;
+	row = row.split("</div>");
+	let new_row = "";
+	for (let i of row) {
+		if (i.toLowerCase().match(event.toLowerCase())) {
+				new_row += i + "</div>";
+		}
+	}
+	console.log(new_row);
+	myTable.innerHTML = new_row;
+}
+function sirala() {
+	let siralamalar = document.getElementById("options");
+	let secilen = siralamalar.options[siralamalar.selectedIndex].value;
+	if (secilen == "artan") {
+	
+	} else if (secilen == "azalan") {
+	} else {
+	}
+}
+function setPSUBoptions() {
+	let siralamalar = document.getElementById("p_options");
+	let secilen = siralamalar.options[siralamalar.selectedIndex].value;
+	if (secilen == "konut") {
+		p_sub_options.innerHTML = '<option value="S">Satılık</option><option value="K">Kiralık</option><option value="GK">Günlük Kiralık</option>';
+	} else {
+		p_sub_options.innerHTML = '<option value="S">Satılık</option><option value="K">Kiralık</option>';
+	}
+}
+//Bu fonksiyon ürün eklemek için girilen değerleri dosyaya yazacak.
+function sendProductValues() {
+	let tur = document.getElementById("p_options");
+	let secilen_tur = tur.options[tur.selectedIndex].value;
+	let alt_tur = document.getElementById("p_sub_options");
+	let secilen_alt_tur = alt_tur.options[alt_tur.selectedIndex].value;
+	let baslik = document.getElementById("header").value;
+	let fiyat = document.getElementById("product_price").value;
+	let aciklama = document.getElementById("description").value;
+	let img_link = document.getElementById("img_link").value;
+	let adres = document.getElementById("adres").value;
+	let id = 0;
+
+	if (secilen_tur == "konut") {
+		id = (maxKonutId++) + 1;
+		
+	}
+	else if (secilen_tur == "arsa") {
+		id = (maxArsaId++) + 1;
+	}
+	else if (secilen_tur == "bina") {
+		id = (maxBinaId++) + 1;
+	}
+	else if (secilen_tur == "isyeri") {
+		id = (maxIsyeriId++) + 1;
+	}
+	
+	document.getElementById("cancelProduct").innerHTML = "";
+	
+	
+	
+	myObject = {"id" : id, 
+	    	    "tur" : secilen_tur,
+	    	    "alt_tur" : secilen_alt_tur,
+	    	    "baslik" : baslik,
+	    	    "fiyat" : fiyat,
+	    	    "aciklama" : aciklama,
+	    	    "adres" : adres,
+	    	    "img_link" : img_link};
+
+	var firebaseRef = firebase.database().ref("ONAY_BEKLEYENLER");	
+	firebaseRef.child(id).set(myObject);
+
+	document.getElementById("productInfo").innerHTML = '<center><img src="tick.png" class="avatar"><h2>BAŞARILI</h2></center>';
+	setTimeout(function() {
+		document.getElementById('urunEklePenceresi').style.display='none';
+	}, 2000);
+	
+}
+</script>
+
+</body>
+</html>
