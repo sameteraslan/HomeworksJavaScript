@@ -134,26 +134,26 @@ function inspectProduct(id) {
 	let resim = "";
 	
 	if (database.arsa.has(id)) {
-		baslik = database.arsa(id)[3];
-		aciklama = database.arsa(id)[4];
-		fiyat = database.arsa(id)[2];
-		resim = database.arsa(id)[1];
+		baslik = database.arsa.get(id)[3];
+		aciklama = database.arsa.get(id)[4];
+		fiyat = database.arsa.get(id)[2];
+		resim = database.arsa.get(id)[1];
 	} else if (database.konut.has(id)) {
-		baslik = database.konut(id)[3];
-		aciklama = database.konut(id)[4];
-		fiyat = database.konut(id)[2];
-		resim = database.konut(id)[1];
+		baslik = database.konut.get(id)[3];
+		aciklama = database.konut.get(id)[4];
+		fiyat = database.konut.get(id)[2];
+		resim = database.konut.get(id)[1];
 
 	} else if (database.isyeri.has(id)) {
-		baslik = database.isyeri(id)[3];
-		aciklama = database.isyeri(id)[4];
-		fiyat = database.isyeri(id)[2];
-		resim = database.isyeri(id)[1];
+		baslik = database.isyeri.get(id)[3];
+		aciklama = database.isyeri.get(id)[4];
+		fiyat = database.isyeri.get(id)[2];
+		resim = database.isyeri.get(id)[1];
 	} else if (database.bina.has(id)) {
-		baslik = database.bina(id)[3];
-		aciklama = database.bina(id)[4];
-		fiyat = database.bina(id)[2];
-		resim = database.bina(id)[1];
+		baslik = database.bina.get(id)[3];
+		aciklama = database.bina.get(id)[4];
+		fiyat = database.bina.get(id)[2];
+		resim = database.bina.get(id)[1];
 	}
 	document.getElementById('urunEklePenceresi').style.display='block';
 	
