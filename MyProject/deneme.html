@@ -378,8 +378,28 @@ readData("konut.txt");
 readData("arsa.txt");
 readData("bina.txt");
 readData("isyeri.txt");
-showFirebaseElements();
 
+// Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+var promise1 = new Promise(function(resolve, reject) {
+  resolve(connectFirebase);
+});
+
+promise1.then(function() {
+  showFirebaseElements();
+
+}).then(function() {refreshElements();});
+
+function connectFirebase() {
+	let onaylar = firebase.database().ref("ONAYLANANLAR");
+		onaylar.on('child_added', snap => {
+		  let name = snap.val();
+		  checked_products.set(snap.key, name);
+		});
+
+}
+
+
+//setTimeout(function() {showFirebaseElements();}, 2500);
 function refreshElements() {
 	showKonutElements();
 	showIsyeriElements();
@@ -389,11 +409,7 @@ function refreshElements() {
 
 
 function showFirebaseElements() {
-	let onaylar = firebase.database().ref("ONAYLANANLAR");
-		onaylar.on('child_added', snap => {
-		  let name = snap.val();
-		  checked_products.set(snap.key, name);
-		});
+
 
 
 	for (let b of checked_products.keys()) {
