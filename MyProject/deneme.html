@@ -378,28 +378,9 @@ readData("konut.txt");
 readData("arsa.txt");
 readData("bina.txt");
 readData("isyeri.txt");
+showFirebaseElements();
 
-// Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
-var promise1 = new Promise(function(resolve, reject) {
-  console.log("firebase baglandi");
-  resolve(connectFirebase);
-});
-
-promise1.then(showFirebaseElements).then(refreshElements());
-
-function connectFirebase() {
-	let onaylar = firebase.database().ref("ONAYLANANLAR");
-		onaylar.on('child_added', snap => {
-		  let name = snap.val();
-		  checked_products.set(snap.key, name);
-		});
-
-}
-
-
-//setTimeout(function() {showFirebaseElements();}, 2500);
 function refreshElements() {
-	console.log("yenilendi");
 	showKonutElements();
 	showIsyeriElements();
 	showBinaElements();
@@ -408,11 +389,15 @@ function refreshElements() {
 
 
 function showFirebaseElements() {
+	let onaylar = firebase.database().ref("ONAYLANANLAR");
+		onaylar.on('child_added', snap => {
+		  let name = snap.val();
+		  checked_products.set(snap.key, name);
+		});
 
-	console.log("firebase elemanlari atandı");
 
 	for (let b of checked_products.keys()) {
-		console.log("giris_basarili");
+		console.log("giris basarili");
 		if (Number(b) > 900000) { //bina
 			database.bina.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
 		} else if (Number(b) > 800000) { //arsa
