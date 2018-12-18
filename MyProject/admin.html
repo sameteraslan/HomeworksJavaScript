@@ -89,7 +89,7 @@ function checkResult(value) {
 	//if (!value) return;
 	setTimeout(function() {getContactMessages();}, 10);
 	setTimeout(function() {showContactElements();}, 2000);
-	setTimeout(function() {document.getElementById("loginPage").outerHTML = "";}, 2500);
+	setTimeout(function() {document.getElementById("loginPage").outerHTML = "";}, 2200);
 }
 
 function parseAndCheck(line) {
@@ -123,7 +123,7 @@ function showContactElements() {
 		row += '<div class="scard"><header><h3>' + i["name"] + ' ' + i["sname"] + '</h3><h5>' + i["date"] + '</h5></header><div class="w3-container"><p>' + i["country"] + '</p><p>' + i["phone"] + '</p><hr><p>' + i["topic"] + '</p><br></div><button id="' + i["key"] + '" style="background-color:red;width: -moz-available;" onClick="checkMessage(this.id);">Bekliyor</button></div>&nbsp;&nbsp;&nbsp;&nbsp;';  
 	}
 	for (let i of onaylama_mesajlari.values()) {
-		row += '<div class="card"><img src="' + i["img_link"]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + i["baslik"] + '</h4><p class="price">' + i["fiyat"] + ' TL</p><p>' + i["aciklama"] + '</p> <p><button style="background-color:red;" id="' + i["id"] + '" onClick="checkProducts(this.id);">Onaylanmadı</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
+		row += '<div class="card"><img src="' + i["img_link"]  + '" style="width:180px;height:180px;max-width: -moz-available;max-height: -moz-available;" alt="konutlar"> <h4 style="min-height:200px">' + i["baslik"] + '</h4><p class="price">' + i["fiyat"] + ' TL</p><p>' + i["aciklama"] + '</p> <p><button style="background-color:red;" id="' + i["id"] + '" onClick="checkProducts(this.id);">Onaylanmadı</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	}
 	document.getElementById("iletisim_bekleyenler").innerHTML = row;
 	//document.getElementById("loginPage").outerHTML = "";
