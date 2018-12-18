@@ -378,7 +378,13 @@ readData("konut.txt");
 readData("arsa.txt");
 readData("bina.txt");
 readData("isyeri.txt");
-showFirebaseElements();
+
+let onaylar = firebase.database().ref("ONAYLANANLAR");
+	onaylar.on('child_added', snap => {
+	  let name = snap.val();
+	  checked_products.set(snap.key, name);
+	});
+setTimeout(function() {showFirebaseElements();}, 2500);
 
 function refreshElements() {
 	showKonutElements();
@@ -387,13 +393,8 @@ function refreshElements() {
 	showArsaElements();
 }
 
-
 function showFirebaseElements() {
-	let onaylar = firebase.database().ref("ONAYLANANLAR");
-		onaylar.on('child_added', snap => {
-		  let name = snap.val();
-		  checked_products.set(snap.key, name);
-		});
+
 
 
 	for (let b of checked_products.keys()) {
