@@ -381,13 +381,11 @@ readData("isyeri.txt");
 
 // Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
 var promise1 = new Promise(function(resolve, reject) {
+  console.log("firebase baglandi");
   resolve(connectFirebase);
 });
 
-promise1.then(function() {
-  showFirebaseElements();
-
-}).then(function() {refreshElements();});
+promise1.then(showFirebaseElements).then(refreshElements());
 
 function connectFirebase() {
 	let onaylar = firebase.database().ref("ONAYLANANLAR");
@@ -401,6 +399,7 @@ function connectFirebase() {
 
 //setTimeout(function() {showFirebaseElements();}, 2500);
 function refreshElements() {
+	console.log("yenilendi");
 	showKonutElements();
 	showIsyeriElements();
 	showBinaElements();
@@ -410,7 +409,7 @@ function refreshElements() {
 
 function showFirebaseElements() {
 
-
+	console.log("firebase elemanlari atandı");
 
 	for (let b of checked_products.keys()) {
 		console.log("giris_basarili");
