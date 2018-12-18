@@ -370,12 +370,13 @@ function addBina(txt) {
     }
     database.bina.delete("");
 }
+var checked_products = new Map();
 readData("");
 readData("konut.txt");
 readData("arsa.txt");
 readData("bina.txt");
 readData("isyeri.txt");
-var checked_products = new Map();
+
 let onaylar = firebase.database().ref("ONAYLANANLAR");
 	onaylar.on('child_added', snap => {
 	  let name = snap.val();
