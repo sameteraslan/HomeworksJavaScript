@@ -24,7 +24,6 @@
     </script>
 
 <style>
-
 .scard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 200px;
@@ -35,7 +34,6 @@
   padding: 10px;
   display: inline-block;
 }
-
 button {
     background-color: #4CAF50;
     color: white;
@@ -44,19 +42,15 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-
 button:hover {
     background-color: #45a049;
 }
-
 .container {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
     max-width:50%;
-
 }
-
 </style>
 </head>
 <body>
@@ -76,12 +70,10 @@ button:hover {
 <div id="iletisim_bekleyenler" style="display:inline;max-width:1000px"></div>
 </center>
 <script>
-
 function check() {
 	document.getElementById("iletisim_bekleyenler").innerHTML = "";
 	readData("admin.txt");
 }
-
 const url = "https://sameteraslan.github.io/HomeworksJavaScript/MyProject/text_files/";
 function readData(file) {
     if(file.includes("admin.txt")) {
@@ -90,7 +82,6 @@ function readData(file) {
           .then(parseAndCheck).then(value => checkResult(value));
     }
 }
-
 var elements = "";
 function checkResult(value) {
 	//if (!value) return;
@@ -99,9 +90,7 @@ function checkResult(value) {
 	getContactMessages();
 	
 	showContactElements();
-
 }
-
 function parseAndCheck(line) {
     let b = line.split("\n");
     let uname = document.getElementById("uname").value + "";
@@ -110,39 +99,32 @@ function parseAndCheck(line) {
 	return true;
     return false;
 }
-
-var uye_mesajlari = new Set();
-var onaylama_mesajlari = new Set();
+var uye_mesajlari = new Map();
+var onaylama_mesajlari = new Map();
 function getContactMessages() {
 	var commentsRef = firebase.database().ref("ILETISIM");
 	commentsRef.on('child_added', snap => {
 	  let name = snap.val();
-	  name["key"] = snap.key;
-	  uye_mesajlari.add(name);
+	  //name["key"] = snap.key;
+	  uye_mesajlari.set(snap.key, name);
 	});
-
 	let onaylar = firebase.database().ref("ONAY_BEKLEYENLER");
 	onaylar.on('child_added', snap => {
 	  let name = snap.val();
-	  onaylama_mesajlari.add(name);
+	  onaylama_mesajlari.set(snap.key, name);
 	});	
 }
-
 function showContactElements() {
 	let row = "";
-	for (let i of uye_mesajlari) {
-
+	for (let i of uye_mesajlari.values()) {
 		row += '<div class="scard"><header><h3>' + i["name"] + ' ' + i["sname"] + '</h3><h5>' + i["date"] + '</h5></header><div class="w3-container"><p>' + i["country"] + '</p><p>' + i["phone"] + '</p><hr><p>' + i["topic"] + '</p><br></div><button id="' + i["key"] + '" style="background-color:red;width: -moz-available;" onClick="checkMessage(this.id);">Bekliyor</button></div>&nbsp;&nbsp;&nbsp;&nbsp;';  
 	}
-
-	for (let i of onaylama_mesajlari) {
+	for (let i of onaylama_mesajlari.values()) {
 		row += '<div class="card"><img src="' + i["img_link"]  + '" style="width:180px;height:180px;" alt="konutlar"> <h4 style="min-height:200px">' + i["baslik"] + '</h4><p class="price">' + i["fiyat"] + ' TL</p><p>' + i["aciklama"] + '</p> <p><button style="background-color:red;" id="' + i["id"] + '" onClick="checkProducts(this.id);">Onaylanmadı</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	}
 	document.getElementById("iletisim_bekleyenler").innerHTML = row;
 	//document.getElementById("loginPage").outerHTML = "";
-
 }
-
 function checkMessage(key) {
 	//burada firebaseden silinenecek.
 	document.getElementById(key).style = 'background-color="green"';
@@ -150,13 +132,16 @@ function checkMessage(key) {
 	var firebaseRef = firebase.database().ref("ILETISIM");	
 	//firebaseRef.child(key).set(null);
 }
-
 function checkProducts(id) {
 	document.getElementById(id).style = 'background-color="green"';
 	document.getElementById(id).innerText = "Onaylandı";
-	var firebaseRef = firebase.database().ref("ONAY_BEKLEYENLER");	
-	//firebaseRef.child(id).set(null);
+	var firebaseRef1 = firebase.database().ref();
 
+	myObject = onaylama_mesajlari.get(id);
+	var firebaseRef = firebase.database().ref("ONAYLANANLAR");	
+	firebaseRef.child(id).set(myObject);
+	var firebaseRef = firebase.database().ref("ONAY_BEKLEYENLER");	
+	firebaseRef.child(id).set(null);
 }
 </script>
 </body>
