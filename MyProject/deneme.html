@@ -397,6 +397,7 @@ function showFirebaseElements() {
 
 
 	for (let b of checked_products.keys()) {
+		console.log("giris_basarili");
 		if (Number(b) > 900000) { //bina
 			database.bina.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
 		} else if (Number(b) > 800000) { //arsa
