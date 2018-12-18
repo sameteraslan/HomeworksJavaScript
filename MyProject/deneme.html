@@ -333,9 +333,11 @@ function addKonut(txt) {
     for (let s of a) {
 		let std = parse(s);
 		database.konut.set(std[0], [std[1], std[2], std[3], std[4], std[5], std[6]]);
+		
 		if (maxKonutId < Number(std[0]))
 			maxKonutId = Number(std[0]);
     }
+    showFirebaseElements();
     database.konut.delete("");
 }
 function addIsyeri(txt) {
@@ -377,7 +379,6 @@ readData("arsa.txt");
 readData("bina.txt");
 readData("isyeri.txt");
 showFirebaseElements();
-refreshElements();
 
 function refreshElements() {
 	showKonutElements();
@@ -386,12 +387,15 @@ function refreshElements() {
 	showArsaElements();
 }
 
-let onaylar = firebase.database().ref("ONAYLANANLAR");
-	onaylar.on('child_added', snap => {
-	  let name = snap.val();
-	  checked_products.set(snap.key, name);
-	});
+
 function showFirebaseElements() {
+	let onaylar = firebase.database().ref("ONAYLANANLAR");
+		onaylar.on('child_added', snap => {
+		  let name = snap.val();
+		  checked_products.set(snap.key, name);
+		});
+
+
 	for (let b of checked_products.keys()) {
 		if (Number(b) > 900000) { //bina
 			database.bina.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
