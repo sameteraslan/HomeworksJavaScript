@@ -392,7 +392,6 @@ function showFirebaseElements() {
 		} else if (Number(b) > 500000) { //konut
 			database.konut.set(b, [checked_products.get(b)["alt_tur"], checked_products.get(b)["img_link"], checked_products.get(b)["fiyat"], checked_products.get(b)["baslik"], checked_products.get(b)["aciklama"], checked_products.get(b)["adres"]]);
 		}
-		checked_products.delete(b);
 	}
 }
 
