@@ -157,7 +157,8 @@ function inspectProduct(id) {
 	}
 	document.getElementById('urunEklePenceresi').style.display='block';
 	
-	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><img src="' + resim + '" alt="resim yukleniyor..." style = "witdh:400px;height:500px;"></img><label>' + baslik + '</label><br><br><br><label>Fiyat: ' + fiyat + '</label><br><br><br> <label>Aciklama : ' + aciklama + '</label><button type="button" id="kapat" onClick="document.getElementById("urunEklePenceresi").style.display="none">Kapat</button>';
+	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><center><img src="' + resim + '" alt="resim yukleniyor..." style = "witdh:400px;height:500px;"></img></center><br><br><label>' + baslik + '</label><br><br><br><label>Fiyat: ' + fiyat + '</label><br><br><br> <label>Aciklama : ' + aciklama + '</label><button type="button" id="kapat" onClick="document.getElementById("urunEklePenceresi").style.display="none"">Kapat</button>';
+	document.getElementById("cancelProduct").innerHTML = "";
 
 }
 
