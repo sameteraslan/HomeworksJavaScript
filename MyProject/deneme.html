@@ -149,7 +149,7 @@
     </div>
 
     <div class="container" style="background-color:#f1f1f1" id="cancelProduct">
-      <button type="button" onclick="document.getElementById('urunEklePenceresi').style.display='none'" class="cancelbtn">İptal Et</button>
+      <button type="button" onClick="document.getElementById('urunEklePenceresi').style.display='none'" class="cancelbtn">İptal Et</button>
     </div>
   </form>
 </div>
@@ -159,7 +159,7 @@
 <script>
 function addProductWindow() {
 	document.getElementById('urunEklePenceresi').style.display='block';
-	document.getElementById("cancelProduct").innerHTML = '<button type="button" onclick="document.getElementById("urunEklePenceresi").style.display="none"" class="cancelbtn">İptal Et</button>';
+	document.getElementById("cancelProduct").innerHTML = '<button type="button" onClick="document.getElementById("urunEklePenceresi").style.display="none"" class="cancelbtn">İptal Et</button>';
 	document.getElementById("productInfo").innerHTML = '<form class="modal-content animate"><div class="container" id="productInfo"><label for="baslik" style="color:black;">Başlık</label><input type="text" id="header" class="addProductText" placeholder="Ürün başlığını giriniz" name="baslik" required><br><br><br><label for="fiyat" style="color:black;">Fiyat</label><input type="text" id="product_price" class="addProductText" placeholder="Fiyatı giriniz" name="fiyat" required><br><br><br> <label style="color:black;">Kategori</label><select id="p_options" onChange="setPSUBoptions();"><option value="konut">Konut</option><option value="isyeri">İşyeri</option><option value="arsa">Arsa</option><option value="bina">Bina</option></select>&nbsp;&nbsp;&nbsp;&nbsp; <label style="color:black;">Alt Kategori</label><select id="p_sub_options"> <option value="NULL"></option></select><br><br><br> <label for="adres" style="color:black;">Adres</label><input type="text" id="adres" class="addProductText" placeholder="Adres giriniz" name="adres" required><br><br><br><label for="description" style="color:black;">Detaylı Bilgi</label><input type="text" id="description" class="addProductText" placeholder="Detaylı bilgi giriniz" name="description" required><br><br><br><label for="img_link" style="color:black;">Resim Linki</label><input type="url" id="img_link" class="addProductText" placeholder="http://www.example.com.tr" name="description" required><br><button type="button" id="gonder" onClick="sendProductValues();">Gönder</button>';
 }
 function inspectProduct(id) {
