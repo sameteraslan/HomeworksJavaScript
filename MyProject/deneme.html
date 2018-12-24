@@ -129,11 +129,13 @@
 	  <option value="isyeri">İşyeri</option>
 	  <option value="arsa">Arsa</option>
 	  <option value="bina">Bina</option>
-      </select>&nbsp;&nbsp;&nbsp;&nbsp;
+      </select><br><br><br>
 
       <label style="color:black;">Alt Kategori</label>
       <select id="p_sub_options">
-	  <option value="NULL"></option>
+	  <option value="S">Satılık</option>
+	  <option value="K">Kiralık</option>
+	  <option value="GK">Ggünlük Kiralık</option>
       </select><br><br><br>
 
       <label for="adres" style="color:black;">Adres</label>
@@ -444,7 +446,6 @@ function sorgula(aranacak_metin) {
 	    console.log("deneme");
 	    if (database.isyeri.get(b).includes(aranacak_metin))
 	    	row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.isyeri.get(b)[0] + '" class="card"><img src="' + database.isyeri.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:100px">' + database.isyeri.get(b)[5] + '</h4><p class="price">' + database.isyeri.get(b)[2] + ' TL</p><p style="height: 90px;">' + database.isyeri.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';
-
 	    if (database.konut.get(b).includes(aranacak_metin))
 	    	row += '<div style="background-color: darkslategrey;margin: 5px;" id="' + b + '' + database.konut.get(b)[0] + '" class="card"><img src="' + database.konut.get(b)[1]  + '" style="width:180px;height:180px;" alt="isyerleri"> <h4 style="min-height:100px">' + database.konut.get(b)[5] + '</h4><p class="price">' + database.konut.get(b)[2] + ' TL</p><p style="height: 90px;">' + database.konut.get(b)[4] + '</p> <p><button id="' + b + '" onClick="inspectProduct(this.id)">İncele</button></p></div>&nbsp;&nbsp;&nbsp;&nbsp;';   
 	    if (database.arsa.get(b).includes(aranacak_metin))
