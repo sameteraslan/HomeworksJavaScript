@@ -1,9 +1,9 @@
-715161	S	images/i001.jpg	1.500.000	BÖYLE MEKAN YOK	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Pendik
-715162	S	images/i002.jpg	2.350.000	BURSA SURYAPI MARKA AVM' İN YANINDA FIRSAT YATIRIMLIK MÜLK	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kagithane
-715163	S	images/i003.jpg	553.000	Datça sanayi sitesinde kupon dükkan	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Sultanbeyli
-715164	K	images/i004.jpg	86.000	BURSA NİLÜFER'DE YÜKSEK CİROLU PRESTİJLİ EMSALSİZ İSTASYON.	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Uskudar
-715165	K	images/i005.jpg	12.200	ANGERA'dan 6.200 TL NET + KDV KÖŞE BAŞI KURUMSAL MARKET KİRACILI	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kadikoy
-715166	K	images/i006.jpg	19.500	AYRINTIL BİLGİ VE RANDEVU İÇİN LÜTFEN ARAYINIZ	Detayli bilgi için arayin. 555 555 55 55	İstanbul
-715167	K	images/i007.jpg	9.500	ALTINDAĞ'DA 3.000 TL KİRACILI KUPON ECZANE	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Fatih
-715168	K	images/i008.jpg	8.500	ZİYAPAŞA BLV. TORAMAN CORNER İŞ MERKEZİ YENİ OFİS- UYGUN KREDİ	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Pendik
-715169	K	images/i009.jpg	12.380	ŞEHİR MERKEZİN DE SATILIK AKARYAKIT VE LPG İSTASYONU	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Sariyer
+715161	S	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i001.jpg	1.500.000	BÖYLE MEKAN YOK	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Pendik
+715162	S	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i002.jpg	2.350.000	BURSA SURYAPI MARKA AVM' İN YANINDA FIRSAT YATIRIMLIK MÜLK	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kagithane
+715163	S	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i003.jpg	553.000	Datça sanayi sitesinde kupon dükkan	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Sultanbeyli
+715164	K	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i004.jpg	86.000	BURSA NİLÜFER'DE YÜKSEK CİROLU PRESTİJLİ EMSALSİZ İSTASYON.	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Uskudar
+715165	K	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i005.jpg	12.200	ANGERA'dan 6.200 TL NET + KDV KÖŞE BAŞI KURUMSAL MARKET KİRACILI	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Kadikoy
+715166	K	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i006.jpg	19.500	AYRINTIL BİLGİ VE RANDEVU İÇİN LÜTFEN ARAYINIZ	Detayli bilgi için arayin. 555 555 55 55	İstanbul
+715167	K	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i007.jpg	9.500	ALTINDAĞ'DA 3.000 TL KİRACILI KUPON ECZANE	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Fatih
+715168	K	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i008.jpg	8.500	ZİYAPAŞA BLV. TORAMAN CORNER İŞ MERKEZİ YENİ OFİS- UYGUN KREDİ	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Pendik
+715169	K	https://sameteraslan.github.io/HomeworksJavaScript/MyProject/images/i009.jpg	12.380	ŞEHİR MERKEZİN DE SATILIK AKARYAKIT VE LPG İSTASYONU	Detayli bilgi için arayin. 555 555 55 55	İstanbul-Sariyer
